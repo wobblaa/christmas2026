@@ -61,6 +61,13 @@
 #otherUsersList::before{content:'Select a family member to view their gift list'!important}
 html[lang="fr"] #otherUsersList::before{content:'Sélectionnez un membre de la famille pour voir sa liste de cadeaux'!important}
 @media(max-width:420px){#authStatus{padding:10px 9px!important}#authStatusText{font-size:11px!important}#authStatus #signOutButton{font-size:10px!important;padding:6px!important}}
+
+/* Recognizable product links, readable on phones in either language. */
+.gift-store-link{display:inline-flex!important;align-items:center!important;gap:6px!important;max-width:100%!important;min-height:35px!important;padding:6px 9px!important;margin:4px 0!important;background:#eaf1ed!important;color:#174a3d!important;border:1px solid #b6cec0!important;border-radius:9px!important;text-decoration:none!important;font:600 13px 'DM Sans',sans-serif!important;box-shadow:none!important;vertical-align:middle!important;white-space:normal!important;line-height:1.2!important}
+.gift-store-link:hover{background:#d8e8df!important;border-color:#6a9e87!important}
+.gift-store-icon{width:20px!important;height:20px!important;flex:none!important;object-fit:contain!important;border-radius:3px!important}
+.gift-store-external{font-size:15px!important;flex:none!important;opacity:.7!important}
+.gift-store-link-label{overflow-wrap:break-word!important}
 </style>
   <script>
     (function () {
@@ -783,14 +790,40 @@ authStatusTextElement.textContent = `${LANGUAGES[currentLanguage].signedInAs} ${
     }
 
     function renderGiftLink(u) {
-      const domain = getDomainFromUrl(u);
-      const color = DOMAIN_COLORS[domain] || '#6c757d';
-      const displayName = domain.charAt(0).toUpperCase() + domain.slice(1);
-      
-      return `<a class="gift-link gift-link-badge" href="${u}" target="_blank" rel="noopener noreferrer" style="background-color: ${color}; color: white; border: none; font-weight: 500;">${displayName}</a>`;
+      let parsed;
+      try { parsed = new URL(u); } catch { return ''; }
+      if (!['http:', 'https:'].includes(parsed.protocol)) return '';
+      const hostname = parsed.hostname.toLowerCase().replace(/^www\./, '');
+      const brands = [
+        [/^(?:amazon\.[a-z.]+|a\.co|amzn\.to)$/, 'Amazon', 'amazon.com'],
+        [/^(?:walmart\.[a-z.]+|walm\.rt)$/, 'Walmart', 'walmart.com'],
+        [/^(?:bestbuy\.[a-z.]+)$/, 'Best Buy', 'bestbuy.com'],
+        [/^(?:etsy\.com|etsy\.me)$/, 'Etsy', 'etsy.com'],
+        [/^(?:ebay\.[a-z.]+)$/, 'eBay', 'ebay.com'],
+        [/^(?:target\.com)$/, 'Target', 'target.com'],
+        [/^(?:ikea\.[a-z.]+)$/, 'IKEA', 'ikea.com'],
+        [/^(?:costco\.[a-z.]+)$/, 'Costco', 'costco.com'],
+        [/^(?:homedepot\.[a-z.]+)$/, 'Home Depot', 'homedepot.com'],
+        [/^(?:canadiantire\.ca)$/, 'Canadian Tire', 'canadiantire.ca'],
+        [/^(?:indigo\.ca|chapters\.indigo\.ca)$/, 'Indigo', 'indigo.ca'],
+        [/^(?:sephora\.[a-z.]+)$/, 'Sephora', 'sephora.com']
+      ];
+      const known = brands.find(([pattern]) => pattern.test(hostname));
+      const store = known ? known[1] : '';
+      const iconDomain = known ? known[2] : hostname;
+      const name = store || hostname;
+      const label = store
+        ? (currentLanguage === 'fr' ? 'Voir sur ' : 'View at ') + store
+        : (currentLanguage === 'fr' ? 'Voir le produit' : 'View product');
+      const icon = 'https://www.google.com/s2/favicons?domain=' + encodeURIComponent(iconDomain) + '&sz=32';
+      const safeUrl = escapeAttr(parsed.href);
+      return '<a class="gift-link gift-store-link" href="' + safeUrl + '" target="_blank" rel="noopener noreferrer" aria-label="' + escapeAttr(label) + '">' +
+        '<img class="gift-store-icon" src="' + escapeAttr(icon) + '" alt="" loading="lazy" onerror="this.style.display=\'none\'">' +
+        '<span class="gift-store-link-label" data-store="' + escapeAttr(store) + '">' + label + '</span>' +
+        '<span aria-hidden="true" class="gift-store-external">↗</span></a>';
     }
 
-    // ===== GIFT ORDERING UTILITIES =====
+        // ===== GIFT ORDERING UTILITIES =====
     async function getNextOrderIndexForOwner(ownerUid) {
       // Uses composite index: listOwnerId ASC, orderIndex DESC
       const qTop = query(
@@ -1446,6 +1479,14 @@ authStatusTextElement.textContent = `${LANGUAGES[currentLanguage].signedInAs} ${
         if (match) el.textContent = lang.noAvailableGifts.replace('{name}', match[1]);
       });
       document.documentElement.lang = currentLanguage;
+      document.querySelectorAll('.gift-store-link-label').forEach(el => {
+        const store = el.dataset.store;
+        const label = store
+          ? (currentLanguage === 'fr' ? 'Voir sur ' : 'View at ') + store
+          : (currentLanguage === 'fr' ? 'Voir le produit' : 'View product');
+        el.textContent = label;
+        el.closest('a')?.setAttribute('aria-label', label);
+      });
       // Update all edit buttons
       document.querySelectorAll('.edit-gift-btn').forEach(btn => {
         btn.textContent = lang.edit;
