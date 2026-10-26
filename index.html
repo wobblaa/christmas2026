@@ -1169,14 +1169,6 @@ authStatusTextElement.textContent = `${LANGUAGES[currentLanguage].signedInAs} ${
 
       viewOtherUserGiftsContainer.style.display = 'block';
       viewOtherUserGiftsContainer.innerHTML = `<h3>${LANGUAGES[currentLanguage].loadingGifts}</h3>`;
-      
-      // Auto-scroll to bring the gift list into view
-      setTimeout(() => {
-        viewOtherUserGiftsContainer.scrollIntoView({ 
-          behavior: 'smooth', 
-          block: 'start' 
-        });
-      }, 100);
 
       const baseCol = collection(db, 'giftItems');
 
