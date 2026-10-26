@@ -573,6 +573,7 @@ authStatusTextElement.textContent = `${LANGUAGES[currentLanguage].signedInAs} ${
         const email = emailInput.value.trim();
         const pass = passwordInput.value;
         if (!nameRaw) return alert('Please enter your first name.');
+        if (/\s/.test(nameRaw)) return alert(currentLanguage === 'fr' ? 'Le prénom ne peut pas contenir d’espaces.' : 'Username cannot contain spaces.');
         if (!email) return alert('Please enter your email.');
         if (!pass) return alert('Please enter a password.');
 
