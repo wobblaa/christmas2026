@@ -989,9 +989,11 @@ authStatusTextElement.textContent = `${LANGUAGES[currentLanguage].signedInAs} ${
       const item = event.currentTarget.closest('.draggable-gift');
       const list = item && item.parentElement;
       if (!item || !list) return;
+      const rect = item.getBoundingClientRect();
       giftDrag = {
         item, list, handle: event.currentTarget, pointerId: event.pointerId,
         startY: event.clientY, lastY: event.clientY,
+        originTop: rect.top, pointerOffset: event.clientY - rect.top,
         originalOrder: [...list.children].map(el => el.dataset.id),
         active: false
       };
@@ -1013,29 +1015,30 @@ authStatusTextElement.textContent = `${LANGUAGES[currentLanguage].signedInAs} ${
         d.list.classList.add('gift-list-reordering');
       }
       event.preventDefault();
-      d.item.style.setProperty('--drag-offset', (d.lastY - d.startY) + 'px');
+
+      // Compare pointer against every other card's midpoint, not just one
+      // hovered card. This allows jumping from bottom to top in a single drag.
       const others = [...d.list.querySelectorAll('.draggable-gift')].filter(el => el !== d.item);
-      const hovered = others.find(el => {
+      const target = others.find(el => {
         const rect = el.getBoundingClientRect();
-        return d.lastY >= rect.top && d.lastY <= rect.bottom;
+        return d.lastY < rect.top + rect.height / 2;
       });
-      if (!hovered) return;
-      const midpoint = hovered.getBoundingClientRect().top + hovered.getBoundingClientRect().height / 2;
-      const moveBefore = d.lastY < midpoint;
-      if ((moveBefore && d.item.nextElementSibling === hovered) ||
-          (!moveBefore && d.item.previousElementSibling === hovered)) return;
-      animateGiftReorder(d.list, () => {
-        if (moveBefore) hovered.before(d.item);
-        else hovered.after(d.item);
-      });
-      // The dragged card stays under the finger despite its new layout position.
-      const top = d.item.getBoundingClientRect().top;
-      const offset = d.lastY - d.startY;
-      const rect = d.item.getBoundingClientRect();
-      d.item.style.setProperty('--drag-offset', (offset + (d.lastY - (rect.top + rect.height / 2)) * 0.04) + 'px');
+      const currentlyNext = d.item.nextElementSibling;
+      if (target ? target !== currentlyNext : currentlyNext !== null) {
+        animateGiftReorder(d.list, () => {
+          if (target) target.before(d.item);
+          else d.list.appendChild(d.item);
+        });
+      }
+      // Account for the item's shifting layout position after reordering.
+      // With the CSS transform removed temporarily, its normal top is measurable.
+      d.item.style.setProperty('--drag-offset', '0px');
+      const layoutTop = d.item.getBoundingClientRect().top;
+      const desiredTop = d.lastY - d.pointerOffset;
+      d.item.style.setProperty('--drag-offset', (desiredTop - layoutTop) + 'px');
     }
 
-    function saveGiftOrder() {
+        function saveGiftOrder() {
       const items = [...document.querySelectorAll('#giftListDisplay .draggable-gift')];
       const newOrder = items.map((el, index) => ({ id: el.dataset.id, newOrderIndex: index + 1 }));
       updateGiftOrder(newOrder);
