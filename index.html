@@ -406,21 +406,15 @@
       authStatusTextElement = document.getElementById('authStatusText');
       authFormElement = document.getElementById('authForm');
       firstNameInput = document.getElementById('firstNameInput');
-      // During sign-up, silently prevent whitespace (typing or pasting).
-      // Sign-in still supports legacy usernames until accounts are reset.
+      // Prevent whitespace in first-name usernames for sign-in and sign-up.
       firstNameInput?.addEventListener('beforeinput', (event) => {
-        if (authMode === 'signup' && event.data && /\\s/.test(event.data)) {
-          event.preventDefault();
-          const clean = event.data.replace(/\\s+/g, '');
-          if (clean) document.execCommand('insertText', false, clean);
-        }
+        if (event.data && /\s/.test(event.data)) event.preventDefault();
       });
       firstNameInput?.addEventListener('keydown', (event) => {
-        if (authMode === 'signup' && event.key === ' ') event.preventDefault();
+        if (event.key === ' ' || event.code === 'Space') event.preventDefault();
       });
       firstNameInput?.addEventListener('input', () => {
-        if (authMode !== 'signup') return;
-        const cleaned = firstNameInput.value.replace(/\\s+/g, '');
+        const cleaned = firstNameInput.value.replace(/\s+/g, '');
         if (cleaned !== firstNameInput.value) firstNameInput.value = cleaned;
       });
       emailInput = document.getElementById('emailInput');
