@@ -406,6 +406,23 @@
       authStatusTextElement = document.getElementById('authStatusText');
       authFormElement = document.getElementById('authForm');
       firstNameInput = document.getElementById('firstNameInput');
+      // During sign-up, silently prevent whitespace (typing or pasting).
+      // Sign-in still supports legacy usernames until accounts are reset.
+      firstNameInput?.addEventListener('beforeinput', (event) => {
+        if (authMode === 'signup' && event.data && /\\s/.test(event.data)) {
+          event.preventDefault();
+          const clean = event.data.replace(/\\s+/g, '');
+          if (clean) document.execCommand('insertText', false, clean);
+        }
+      });
+      firstNameInput?.addEventListener('keydown', (event) => {
+        if (authMode === 'signup' && event.key === ' ') event.preventDefault();
+      });
+      firstNameInput?.addEventListener('input', () => {
+        if (authMode !== 'signup') return;
+        const cleaned = firstNameInput.value.replace(/\\s+/g, '');
+        if (cleaned !== firstNameInput.value) firstNameInput.value = cleaned;
+      });
       emailInput = document.getElementById('emailInput');
       passwordInput = document.getElementById('passwordInput');
       signInButton = document.getElementById('signInButton');
@@ -573,7 +590,7 @@ authStatusTextElement.textContent = `${LANGUAGES[currentLanguage].signedInAs} ${
         const email = emailInput.value.trim();
         const pass = passwordInput.value;
         if (!nameRaw) return alert('Please enter your first name.');
-        if (/\s/.test(nameRaw)) return alert(currentLanguage === 'fr' ? 'Le prénom ne peut pas contenir d’espaces.' : 'Username cannot contain spaces.');
+        
         if (!email) return alert('Please enter your email.');
         if (!pass) return alert('Please enter a password.');
 
