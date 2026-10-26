@@ -3,6 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#082f2a" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="apple-mobile-web-app-title" content="Family Gifts" />
+  <link rel="manifest" href="./manifest.webmanifest" />
+  <link rel="icon" type="image/svg+xml" href="./icon.svg" />
   <title>My Family Gift List!</title>
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-app.js";
@@ -1967,6 +1973,10 @@ button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible{
  vertical-align:-4px!important;
  background: center / contain no-repeat url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cg fill='%23e7be71'%3E%3Ccircle cx='11' cy='9' r='4'/%3E%3Ccircle cx='23' cy='10' r='3.5'/%3E%3Cpath d='M2 25v-3c0-5 4-8 9-8s9 3 9 8v3H2zm18-9c5-.8 10 2.6 10 7v2h-8v-3c0-2.4-.7-4.4-2-6z'/%3E%3C/g%3E%3C/svg%3E")!important;
 }
+
+.install-help{margin-top:20px;padding:14px 16px;border:1px solid rgba(255,255,255,.22);border-radius:12px;background:rgba(255,255,255,.06);color:#fff8eb;font-size:14px;line-height:1.55}
+.install-help summary{cursor:pointer;font-weight:700;color:#f1cc79}
+.install-help p{margin:12px 0 0}
 </style>
 </head>
 <body>
@@ -1994,6 +2004,7 @@ button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible{
       <button id="signUpButton" style="display:none;">Sign Up</button>
       <a id="forgotPasswordLink">Forgot Password?</a>
     </div>
+    <details class="install-help"><summary>Put Family Gifts on your phone’s Home Screen</summary><p><strong>iPhone:</strong> Open this site in Safari, tap Share, then Add to Home Screen and enable Open as Web App if shown.</p><p><strong>Android:</strong> Open in Chrome, tap the menu (⋮), then Install app or Add to Home screen.</p><p>If you received the link in Snapchat or Messenger, first use its menu to open the link in your regular browser.</p></details>
   </div>
 
 
