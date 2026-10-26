@@ -9,6 +9,43 @@
   <meta name="apple-mobile-web-app-title" content="Family Gifts" />
   <link rel="manifest" href="./manifest.webmanifest" />
   <link rel="icon" type="image/svg+xml" href="./icon.svg" />
+  <style>
+    #installGate {display:none}
+    html.install-gated .content-pane {display:none!important}
+    html.install-gated #installGate {display:flex!important}
+    #installGate {min-height:100dvh;box-sizing:border-box;padding:28px 16px;align-items:center;justify-content:center;background:radial-gradient(circle at 75% 0%,#1a604d,#082f2a 62%);color:#fff9ed;font-family:system-ui,-apple-system,sans-serif}
+    .install-panel {max-width:430px;width:100%;padding:30px 24px;background:#10443a;border:1px solid #4c7569;border-radius:22px;box-shadow:0 20px 65px #001d186b;text-align:center}
+    .install-panel h2 {font-size:29px!important;color:#fff9ed!important;margin:13px 0!important}
+    .install-panel p {line-height:1.55;color:#dfebe2}
+    .install-panel ol {text-align:left;line-height:1.8;padding-left:23px}
+    .install-panel button {width:100%;padding:15px;border-radius:12px;border:1px solid #c6bba0;background:#f3ecd9;color:#193d34;font-size:16px;font-weight:700;cursor:pointer;margin-top:12px;min-height:48px}
+    .install-panel .install-gift {font-size:44px}
+  </style>
+  <script>
+    (function () {
+      const ua = navigator.userAgent || '';
+      const isIOS = /iPhone|iPad|iPod/i.test(ua) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+      const isAndroid = /Android/i.test(ua);
+      const standalone = window.matchMedia('(display-mode: standalone)').matches || navigator.standalone === true;
+      const mobile = isIOS || isAndroid;
+      const bypass = sessionStorage.getItem('family-gifts-browser-continue') === '1';
+      if (mobile && !standalone && !bypass) document.documentElement.classList.add('install-gated');
+      window.familyGiftsInstall = {isIOS, isAndroid};
+    })();
+    function continueFamilyGiftsBrowser() {
+      sessionStorage.setItem('family-gifts-browser-continue','1');
+      document.documentElement.classList.remove('install-gated');
+    }
+    document.addEventListener('DOMContentLoaded', function(){
+      const instructions = document.getElementById('installInstructions');
+      if (instructions) {
+        const platform = window.familyGiftsInstall || {};
+        instructions.innerHTML = platform.isIOS ?
+          '<li>Open this link in <strong>Safari</strong> (not the Snapchat or Messenger browser).</li><li>Tap the <strong>Share</strong> button.</li><li>Choose <strong>Add to Home Screen</strong> and enable <strong>Open as Web App</strong> if offered.</li><li>Tap <strong>Add</strong>, then open the new Family Gifts icon.</li>' :
+          '<li>Open this link in <strong>Chrome</strong> (not an in-app browser).</li><li>Tap the browser menu <strong>⋮</strong>.</li><li>Choose <strong>Install app</strong> or <strong>Add to Home screen</strong>.</li><li>Open the new Family Gifts icon.</li>';
+      }
+    });
+  </script>
   <title>My Family Gift List!</title>
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-app.js";
@@ -1980,6 +2017,16 @@ button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible{
 </style>
 </head>
 <body>
+<section id="installGate" aria-label="Add Family Gifts to your Home Screen">
+  <div class="install-panel">
+    <div class="install-gift" aria-hidden="true">🎁</div>
+    <h2>Family Gift List</h2>
+    <p>For easier access, add Family Gifts to your phone's Home Screen. You can open it from there instead of going through Snapchat or Messenger each time.</p>
+    <ol id="installInstructions"></ol>
+    <button type="button" onclick="continueFamilyGiftsBrowser()">Continue in Browser</button>
+    <p style="font-size:13px">You can still use the website without installing it.</p>
+  </div>
+</section>
 <div class="content-pane"><div class="content-inner">
   <h1 id="christmasHeader" style="text-align: center; margin-bottom: 20px;">Family Gift List</h1>
   <div id="authStatus">
@@ -2004,7 +2051,7 @@ button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible{
       <button id="signUpButton" style="display:none;">Sign Up</button>
       <a id="forgotPasswordLink">Forgot Password?</a>
     </div>
-    <details class="install-help"><summary>Put Family Gifts on your phone’s Home Screen</summary><p><strong>iPhone:</strong> Open this site in Safari, tap Share, then Add to Home Screen and enable Open as Web App if shown.</p><p>If you received the link in Snapchat or Messenger, use the app’s menu to open it in Safari first.</p></details>
+    <details class="install-help"><summary>Put Family Gifts on your phone’s Home Screen</summary><p><strong>iPhone:</strong> Open this site in Safari, tap Share, then Add to Home Screen and enable Open as Web App if shown.</p><p><strong>Android:</strong> Open this site in Chrome, tap ⋮, then Install app or Add to Home screen.</p><p>If you received the link in Snapchat or Messenger, use the app’s menu to open it in your regular browser first.</p></details>
   </div>
 
 
