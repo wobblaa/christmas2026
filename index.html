@@ -263,7 +263,10 @@ html[lang="fr"] #otherUsersList::before{content:'Sélectionnez un membre de la f
       }
     };
 
-    let currentLanguage = 'en';
+    let currentLanguage = (() => {
+      try { return localStorage.getItem('christmas2026-language') === 'fr' ? 'fr' : 'en'; }
+      catch (error) { return 'en'; }
+    })();
 
     // ===== DOMAIN COLORS DATA =====
     const DOMAIN_COLORS = {
@@ -1426,6 +1429,8 @@ authStatusTextElement.textContent = `${LANGUAGES[currentLanguage].signedInAs} ${
     // Language switching function
     function switchLanguage() {
       currentLanguage = currentLanguage === 'en' ? 'fr' : 'en';
+      try { localStorage.setItem('christmas2026-language', currentLanguage); }
+      catch (error) { /* Storage may be unavailable in private browsing. */ }
       updateLanguage();
       // Also update dynamic content that might have been generated
       setTimeout(() => updateDynamicContent(), 100);
