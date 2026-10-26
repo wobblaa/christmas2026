@@ -165,6 +165,7 @@ html[lang="fr"] #otherUsersList::before{content:'Choisis quelqu’un de la gang 
         'addGiftTitle': 'Add a New Gift to Your List',
         'giftName': 'Gift Name',
         'giftNameLabel': 'Gift name *',
+        'descriptionLabel': 'Description (optional)',
         'giftLinkLabel': 'Gift link (optional)',
         'chooseFile': 'Choose file',
         'description': 'Description',
@@ -239,6 +240,7 @@ html[lang="fr"] #otherUsersList::before{content:'Choisis quelqu’un de la gang 
         'addGiftTitle': "Ajouter un p’tit cadeau 🎁",
         'giftName': "C’est quoi le cadeau?",
         'giftNameLabel': "C’est quoi le cadeau? *",
+        'descriptionLabel': 'Description (facultatif)',
         'giftLinkLabel': "Où on trouve ça? (facultatif)",
         'chooseFile': "Choisir un fichier",
         'description': "Un peu plus de détails",
@@ -1730,6 +1732,8 @@ authStatusTextElement.textContent = `${LANGUAGES[currentLanguage].signedInAs} ${
         addGiftTitle.textContent = lang.addGiftTitle;
       }
       
+      const descriptionLabel = document.querySelector('label[for="giftDescriptionInput"]');
+      if (descriptionLabel) descriptionLabel.textContent = lang.descriptionLabel;
       const nameLabel = document.querySelector('label[for="giftNameInput"]');
       if (nameLabel) nameLabel.textContent = lang.giftNameLabel;
       const linkLabel = document.querySelector('label[for="giftUrlInput"]');
