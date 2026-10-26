@@ -997,11 +997,13 @@ authStatusTextElement.textContent = `${LANGUAGES[currentLanguage].signedInAs} ${
         originalOrder: [...list.children].map(el => el.dataset.id),
         active: false
       };
-      giftDrag.handle.setPointerCapture(event.pointerId);
-      giftDrag.handle.addEventListener('pointermove', moveGiftDrag);
-      giftDrag.handle.addEventListener('pointerup', finishGiftDrag);
-      giftDrag.handle.addEventListener('pointercancel', cancelGiftDrag);
-      giftDrag.handle.addEventListener('lostpointercapture', cancelGiftDrag);
+      // Capture on the stable list container: moving the dragged card in the DOM
+      // must not terminate the pointer stream after a single reorder.
+      giftDrag.list.setPointerCapture(event.pointerId);
+      giftDrag.list.addEventListener('pointermove', moveGiftDrag);
+      giftDrag.list.addEventListener('pointerup', finishGiftDrag);
+      giftDrag.list.addEventListener('pointercancel', cancelGiftDrag);
+      giftDrag.list.addEventListener('lostpointercapture', cancelGiftDrag);
     }
 
     function moveGiftDrag(event) {
@@ -1047,11 +1049,11 @@ authStatusTextElement.textContent = `${LANGUAGES[currentLanguage].signedInAs} ${
     function cleanupGiftDrag() {
       const d = giftDrag;
       if (!d) return;
-      d.handle.removeEventListener('pointermove', moveGiftDrag);
-      d.handle.removeEventListener('pointerup', finishGiftDrag);
-      d.handle.removeEventListener('pointercancel', cancelGiftDrag);
-      d.handle.removeEventListener('lostpointercapture', cancelGiftDrag);
-      if (d.handle.hasPointerCapture(d.pointerId)) d.handle.releasePointerCapture(d.pointerId);
+      d.list.removeEventListener('pointermove', moveGiftDrag);
+      d.list.removeEventListener('pointerup', finishGiftDrag);
+      d.list.removeEventListener('pointercancel', cancelGiftDrag);
+      d.list.removeEventListener('lostpointercapture', cancelGiftDrag);
+      if (d.list.hasPointerCapture(d.pointerId)) d.list.releasePointerCapture(d.pointerId);
       d.item.classList.remove('gift-drag-active');
       d.list.classList.remove('gift-list-reordering');
       d.item.style.removeProperty('--drag-offset');
