@@ -68,6 +68,10 @@ html[lang="fr"] #otherUsersList::before{content:'Sélectionnez un membre de la f
 .gift-store-icon{width:20px!important;height:20px!important;flex:none!important;object-fit:contain!important;border-radius:3px!important}
 .gift-store-external{font-size:15px!important;flex:none!important;opacity:.7!important}
 .gift-store-link-label{overflow-wrap:break-word!important}
+
+/* Family tiles: one-line names, responsive sizing, graceful ellipsis. */
+.family-members-list .ornament-button{min-width:0!important;overflow:hidden!important}
+.family-members-list .ornament-text{display:block!important;width:100%!important;max-width:100%!important;min-width:0!important;box-sizing:border-box!important;white-space:nowrap!important;overflow:hidden!important;text-overflow:ellipsis!important;overflow-wrap:normal!important;word-break:normal!important;line-height:1.3!important;padding:0 2px!important;text-align:center!important}
 </style>
   <script>
     (function () {
@@ -1224,6 +1228,26 @@ authStatusTextElement.textContent = `${LANGUAGES[currentLanguage].signedInAs} ${
            familyGrid.style.setProperty('--family-count', String(usersWithLabels.length));
            familyGrid.classList.toggle('family-overflow', usersWithLabels.length > 6);
          }
+
+        // Fit names within each tile on different screen sizes.
+        if (familyGrid) {
+          const fitNames = () => {
+            familyGrid.querySelectorAll('.ornament-text').forEach(label => {
+              label.style.fontSize = '';
+              const available = label.clientWidth;
+              if (!available) return;
+              let size = 12;
+              label.style.fontSize = size + 'px';
+              while (label.scrollWidth > available + 1 && size > 8) {
+                size -= 0.5;
+                label.style.fontSize = size + 'px';
+              }
+            });
+          };
+          requestAnimationFrame(fitNames);
+          if (window.ResizeObserver) new ResizeObserver(fitNames).observe(familyGrid);
+          else window.addEventListener('resize', fitNames, { passive: true });
+        }
 
         document.querySelectorAll('.ornament-button').forEach(button => {
           button.setAttribute('aria-label', `View ${button.dataset.name}'s gift list`);
