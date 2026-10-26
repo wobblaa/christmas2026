@@ -2329,6 +2329,22 @@ button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible{
 .install-help{margin-top:20px;padding:14px 16px;border:1px solid rgba(255,255,255,.22);border-radius:12px;background:rgba(255,255,255,.06);color:#fff8eb;font-size:14px;line-height:1.55}
 .install-help summary{cursor:pointer;font-weight:700;color:#f1cc79}
 .install-help p{margin:12px 0 0}
+
+/* Soft seasonal scenery: no outside image assets, no bright glitter. */
+.content-pane{position:relative!important;isolation:isolate!important}
+.content-pane::after{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.35;
+ background-image:
+ radial-gradient(circle at 9% 14%,rgba(232,216,159,.35) 0 2px,transparent 3px),
+ radial-gradient(circle at 81% 44%,rgba(219,242,226,.30) 0 2px,transparent 3px),
+ radial-gradient(circle at 38% 72%,rgba(243,229,182,.25) 0 1px,transparent 2px),
+ repeating-conic-gradient(from 45deg at 14% 85%,transparent 0deg 38deg,rgba(141,198,167,.14) 39deg 49deg,transparent 50deg 90deg),
+ repeating-conic-gradient(from 45deg at 88% 76%,transparent 0deg 38deg,rgba(141,198,167,.12) 39deg 49deg,transparent 50deg 90deg);
+ background-size:210px 300px,310px 390px,250px 290px,490px 610px,470px 590px;
+}
+.content-pane>.content-inner{position:relative!important;z-index:1!important}
+#otherUsersList,#myPurchasesContainer,#viewOtherUserGiftsContainer,#giftListDisplay{background-image:radial-gradient(circle at 98% 85%,rgba(149,208,169,.08),transparent 43%)!important}
+#addGiftForm{background-image:radial-gradient(circle at 95% 30%,rgba(204,164,93,.11),transparent 38%),linear-gradient(145deg,#fffaf1,#f6eddf)!important}
+@media(max-width:899px){.content-pane::after{opacity:.22;background-size:160px 240px,220px 290px,190px 230px,310px 410px,290px 400px}}
 </style>
 </head>
 <body>
