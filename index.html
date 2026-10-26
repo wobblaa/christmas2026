@@ -3,6 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap" rel="stylesheet">
   <meta name="theme-color" content="#082f2a" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="default" />
@@ -2372,6 +2373,60 @@ button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible{
 #viewOtherUserGiftsContainer li::after,
 #myPurchasesContainer .purchase-section li::after{
  border-color:rgba(143,99,43,.11)!important;
+}
+
+/* Santa's handwritten loose-leaf wish lists. Controls keep normal UI fonts. */
+#giftListDisplay li.draggable-gift,
+#viewOtherUserGiftsContainer li,
+#myPurchasesContainer .purchase-section li {
+ background-color:#f4ead5!important;
+ background-image:
+  linear-gradient(90deg,transparent 0 36px,rgba(205,95,94,.40) 36px 38px,transparent 38px),
+  repeating-linear-gradient(to bottom,transparent 0 27px,rgba(91,149,178,.23) 28px,transparent 29px),
+  linear-gradient(145deg,#faf2df,#ecdfc5)!important;
+ background-size:100% 100%,100% 29px,100% 100%!important;
+ background-position:left top,left 9px,left top!important;
+ border:1px solid #d5bc91!important;
+ border-radius:10px 13px 12px 10px!important;
+ box-shadow:1px 3px 0 #d0ba97,0 9px 19px #001a1528!important;
+}
+#giftListDisplay li.draggable-gift::after,
+#viewOtherUserGiftsContainer li::after,
+#myPurchasesContainer .purchase-section li::after{
+ content:""!important;position:absolute!important;left:8px!important;top:12px!important;
+ width:7px!important;height:7px!important;border-radius:50%!important;
+ background:#d8c6a7!important;
+ box-shadow:0 31px 0 #d8c6a7,0 62px 0 #d8c6a7!important;
+ border:1px solid #c1ad89!important;inset:auto!important;
+ pointer-events:none!important;opacity:.8!important;
+}
+#giftListDisplay .draggable-gift .gift-content strong,
+#viewOtherUserGiftsContainer li strong,
+#myPurchasesContainer .purchase-section li strong{
+ font-family:'Patrick Hand','Comic Sans MS',cursive!important;
+ font-weight:400!important;font-size:clamp(20px,2.5vw,25px)!important;
+ line-height:1.16!important;letter-spacing:.012em!important;color:#234b42!important;
+}
+#giftListDisplay .gift-description,
+#viewOtherUserGiftsContainer .gift-description,
+#myPurchasesContainer .gift-description{
+ font-family:'Patrick Hand','Comic Sans MS',cursive!important;
+ font-size:19px!important;line-height:1.45!important;color:#3e534b!important;
+}
+#giftListDisplay .draggable-gift,
+#viewOtherUserGiftsContainer li,
+#myPurchasesContainer .purchase-section li{padding-left:26px!important}
+#giftListDisplay .draggable-gift .drag-handle{min-width:22px!important}
+#giftListDisplay li button,#viewOtherUserGiftsContainer li button,#myPurchasesContainer li button,
+#giftListDisplay .gift-store-link,#viewOtherUserGiftsContainer .gift-store-link,
+#myPurchasesContainer .gift-store-link{font-family:'DM Sans',sans-serif!important}
+@media(max-width:550px){
+ #giftListDisplay .draggable-gift,
+ #viewOtherUserGiftsContainer li,
+ #myPurchasesContainer .purchase-section li{padding-left:22px!important}
+ #giftListDisplay .draggable-gift .gift-content strong,
+ #viewOtherUserGiftsContainer li strong,
+ #myPurchasesContainer .purchase-section li strong{font-size:21px!important}
 }
 </style>
 </head>
