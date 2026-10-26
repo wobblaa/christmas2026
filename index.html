@@ -112,7 +112,7 @@ html[lang="fr"] #otherUsersList::before{content:'Choisis quelqu’un de la gang 
 #santaHero #christmasHeader{padding:0!important;margin:0!important;display:block!important;text-align:left!important;line-height:1.1!important;letter-spacing:-.02em!important;font:800 clamp(29px,4.6vw,51px)/1.1 Georgia,serif!important;color:#fff7e8!important;text-shadow:0 2px 13px #00261f!important}
 #santaHero #christmasHeader::before{content:""!important;display:none!important}
 .santa-countdown{margin:10px 0 0!important;font-size:clamp(13px,2vw,18px)!important;color:#f6cc78!important;font-weight:700!important;letter-spacing:.02em!important}
-.santa-hero-fr .santa-countdown{display:none!important}
+/* Countdown is translated and visible in both languages. */
 .santa-envelope{width:clamp(68px,17vw,124px);min-width:68px;transform:rotate(4deg);filter:drop-shadow(0 5px 8px #001d1980)}
 .santa-envelope svg{width:100%;height:auto;display:block}
 .santa-garland{position:absolute;left:0;right:0;top:0;height:78px;overflow:hidden;background:repeating-linear-gradient(158deg,transparent 0 25px,rgba(8,62,42,.25) 27px 33px,transparent 36px 53px),linear-gradient(180deg,#073b2d 0,#0b4a37 70%,transparent 100%);border-bottom:1px solid #d6b36d22}
@@ -155,7 +155,7 @@ html[lang="fr"] #otherUsersList::before{content:'Choisis quelqu’un de la gang 
 #santaHero::before{content:"";position:absolute;inset:79px 0 0;opacity:.5;z-index:0;pointer-events:none;background:radial-gradient(circle at 12% 36%,#ffefa4 0 1px,transparent 2px),radial-gradient(circle at 68% 14%,#fff3c9 0 1px,transparent 2px),radial-gradient(circle at 86% 71%,#fff 0 1px,transparent 2px),radial-gradient(circle at 44% 66%,#fff7c0 0 1px,transparent 2px);background-size:92px 78px,140px 115px,105px 95px,128px 140px}
 #santaHero .santa-title-line{z-index:3}
 #santaHero .santa-countdown{display:inline-flex!important;gap:9px;align-items:center;border:1px solid #e8c47451;border-radius:30px;background:#083d32c4;padding:8px 13px!important;margin-top:13px!important;box-shadow:0 4px 12px #00282080;font-size:clamp(12px,2vw,16px)!important}
-#santaHero.santa-hero-fr .santa-countdown{display:none!important}
+/* French countdown uses the same festive pill. */
 #santaHero #christmasHeader{font-size:clamp(30px,5.1vw,54px)!important;line-height:1.14!important;letter-spacing:-.025em!important}
 #santaHero .santa-envelope{filter:drop-shadow(0 7px 9px #0008);transform:rotate(8deg);transition:transform .3s ease}
 @media(hover:hover){#santaHero:hover .santa-envelope{transform:rotate(0deg) translateY(-3px)}}
@@ -1660,7 +1660,15 @@ authStatusTextElement.textContent = `${LANGUAGES[currentLanguage].signedInAs} ${
       const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
       if (today > christmas) christmas = new Date(++year, 11, 25);
       const days = Math.round((christmas - today) / 86400000);
-      el.textContent = days === 0 ? 'Merry Christmas!' : days === 1 ? '1 day until Christmas!' : days + ' days until Christmas!';
+      el.textContent = currentLanguage === 'fr'
+        ? (days === 0 ? 'Joyeux Noël!' : days === 1 ? 'Plus qu’un dodo avant Noël!' : 'Encore ' + days + ' dodos avant Noël!')
+        : (days === 0 ? 'Merry Christmas!' : days === 1 ? '1 day until Christmas!' : days + ' days until Christmas!');
+      const envelopeLabel = document.getElementById('santaEnvelopeLabel');
+      if (envelopeLabel) envelopeLabel.textContent = currentLanguage === 'fr' ? 'Père Noël' : 'To Santa';
+      const northPoleSign = document.querySelector('.north-pole-sign');
+      if (northPoleSign) northPoleSign.innerHTML = currentLanguage === 'fr'
+        ? '<span>✦</span> BUREAU DE POSTE DU PÔLE NORD <span>✦</span>'
+        : '<span>✦</span> NORTH POLE POST OFFICE <span>✦</span>';
       document.getElementById('santaHero')?.classList.toggle('santa-hero-fr', currentLanguage === 'fr');
     }
     document.addEventListener('DOMContentLoaded', updateSantaCountdown);
@@ -2378,7 +2386,7 @@ button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible{
           <rect x="9" y="11" width="110" height="74" rx="7" fill="#f8edce" stroke="#bcad87" stroke-width="2" transform="rotate(-7 64 48)"/>
           <path d="M15 24L64 60 111 23" fill="none" stroke="#cfb688" stroke-width="2.5"/>
           <path d="M15 78l36-29M112 78L78 49" fill="none" stroke="#d9c9a5" stroke-width="2"/>
-          <text x="35" y="33" font-family="Georgia,serif" font-style="italic" font-size="12" fill="#285349">To Santa</text>
+          <text id="santaEnvelopeLabel" x="35" y="33" font-family="Georgia,serif" font-style="italic" font-size="12" fill="#285349">To Santa</text>
           <circle cx="69" cy="61" r="14" fill="#ad2939" stroke="#d97767" stroke-width="2"/>
           <path d="M63 61l5 5 8-11" fill="none" stroke="#f9d9aa" stroke-width="3" stroke-linecap="round"/>
         </svg>
