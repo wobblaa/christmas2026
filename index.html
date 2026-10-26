@@ -148,6 +148,56 @@ html[lang="fr"] #otherUsersList::before{content:'Choisis quelqu’un de la gang 
 }
 @media(max-width:360px){#santaHero .santa-envelope{width:56px!important;min-width:56px}#santaHero #christmasHeader{font-size:25px!important}}
 @media(prefers-reduced-motion:reduce){.content-pane::before,.fairy-light{animation:none!important}}
+
+/* ---- North Pole Playhouse / seasonal illustration pass ---- */
+:root{--santa-gold:#ecc570;--santa-cream:#fffaf0;--santa-red:#d4273f;--santa-pine:#0b4439}
+#santaHero{border:1px solid #dcbd7059!important;box-shadow:0 3px 0 #dab56d26,0 19px 48px #00180f89!important;background:radial-gradient(circle at 87% 45%,#126e5c88,transparent 46%),radial-gradient(circle at 12% 9%,#2a9a7030,transparent 55%),linear-gradient(165deg,#0d493c,#062b29 85%)!important}
+#santaHero::before{content:"";position:absolute;inset:79px 0 0;opacity:.5;z-index:0;pointer-events:none;background:radial-gradient(circle at 12% 36%,#ffefa4 0 1px,transparent 2px),radial-gradient(circle at 68% 14%,#fff3c9 0 1px,transparent 2px),radial-gradient(circle at 86% 71%,#fff 0 1px,transparent 2px),radial-gradient(circle at 44% 66%,#fff7c0 0 1px,transparent 2px);background-size:92px 78px,140px 115px,105px 95px,128px 140px}
+#santaHero .santa-title-line{z-index:3}
+#santaHero .santa-countdown{display:inline-flex!important;gap:9px;align-items:center;border:1px solid #e8c47451;border-radius:30px;background:#083d32c4;padding:8px 13px!important;margin-top:13px!important;box-shadow:0 4px 12px #00282080;font-size:clamp(12px,2vw,16px)!important}
+#santaHero.santa-hero-fr .santa-countdown{display:none!important}
+#santaHero #christmasHeader{font-size:clamp(30px,5.1vw,54px)!important;line-height:1.14!important;letter-spacing:-.025em!important}
+#santaHero .santa-envelope{filter:drop-shadow(0 7px 9px #0008);transform:rotate(8deg);transition:transform .3s ease}
+@media(hover:hover){#santaHero:hover .santa-envelope{transform:rotate(0deg) translateY(-3px)}}
+.winter-horizon{position:absolute;inset:auto 0 0;height:43px;opacity:.25;pointer-events:none;z-index:1;overflow:hidden}
+.winter-horizon::after{content:"";position:absolute;bottom:0;left:0;right:0;height:10px;background:linear-gradient(90deg,transparent,#5ba88d44,transparent)}
+.winter-tree{position:absolute;bottom:-7px;width:0;height:0;border-left:17px solid transparent;border-right:17px solid transparent;border-bottom:57px solid #6eae93}
+.winter-tree::after{content:"";position:absolute;top:21px;left:-21px;border-left:21px solid transparent;border-right:21px solid transparent;border-bottom:43px solid #6eae93}
+.tree-a{left:3%;transform:scale(.9)}.tree-b{left:18%;transform:scale(.55)}.tree-c{right:11%;transform:scale(1.1)}.tree-d{right:30%;transform:scale(.7)}
+.north-pole-sign{grid-column:1/-1!important;grid-row:auto!important;order:1!important;text-align:center;display:flex;align-items:center;justify-content:center;gap:12px;font-size:10px;font-weight:800;letter-spacing:.21em;color:#f1d89d;margin:-1px auto 4px;opacity:.84;max-width:100%}
+.north-pole-sign span{font-size:15px}
+#otherUsersList,#viewOtherUserGiftsContainer,#myPurchasesContainer,#giftListDisplay{position:relative;overflow:hidden}
+#otherUsersList::after,#myPurchasesContainer::after,#giftListDisplay::after,#viewOtherUserGiftsContainer::after{content:"❄";position:absolute;top:15px;right:18px;font-size:49px;font-weight:400;color:#c6e5d4;opacity:.085;pointer-events:none;line-height:1}
+#otherUsersList::after{content:"✧";font-size:55px;color:#f4d484;opacity:.18}
+#giftListDisplay::after{content:"✉";font-size:55px;color:#f4d484;opacity:.11}
+#myPurchasesContainer::after{content:"★";font-size:46px;color:#ffdd8e;opacity:.13}
+#addGiftForm{background-image:radial-gradient(circle at 91% 16%,#dabf8150 0 1px,transparent 2px),linear-gradient(145deg,#fffaf1,#f6eddf)!important}
+#addGiftForm::before{content:"✉"!important;font-size:72px!important;right:18px!important;top:2px!important;opacity:.105!important}
+#addGiftButton{background:linear-gradient(180deg,#ec344b,#bf172e)!important;box-shadow:0 4px 0 #761829,0 11px 22px #b1203c35!important;transition:transform .2s,box-shadow .2s!important}
+#addGiftButton:active{transform:translateY(2px);box-shadow:0 2px 0 #761829!important}
+#otherUsersList h3,#myPurchasesContainer h3,#giftListDisplay h3,#viewOtherUserGiftsContainer h3{position:relative;z-index:1}
+#viewOtherUserGiftsContainer.waiting-for-gifts{display:none!important}
+.santa-empty{text-align:center;padding:12px 12px 17px;position:relative;z-index:1}
+.santa-empty h3{font-size:clamp(20px,3vw,29px)!important;line-height:1.2!important}
+.santa-empty p{font-size:14px;color:#c6dfd4!important;margin:8px 0 0!important}
+.santa-empty-icon{width:52px;height:52px;display:flex;align-items:center;justify-content:center;margin:0 auto 9px;border-radius:50%;border:1px solid #e3c87899;background:#f6dfaa19;color:#ecc570;font-family:Georgia,serif;font-size:32px;transform:rotate(-8deg)}
+#giftListDisplay .draggable-gift,#viewOtherUserGiftsContainer li,#myPurchasesContainer li{position:relative;border:1px solid #e1d3b7!important;background:linear-gradient(165deg,#fffdf6,#f9f3e9)!important}
+#giftListDisplay .draggable-gift::after,#viewOtherUserGiftsContainer li::after,#myPurchasesContainer li::after{content:"";position:absolute;inset:5px;border:1px solid #bd9e5b18;border-radius:inherit;pointer-events:none;z-index:0}
+#giftListDisplay .draggable-gift>*,#viewOtherUserGiftsContainer li>*,#myPurchasesContainer li>*{position:relative;z-index:1}
+#giftListDisplay .gift-thumbnail,#viewOtherUserGiftsContainer .gift-thumbnail,#myPurchasesContainer .gift-thumbnail{background:radial-gradient(circle at 35% 22%,#fffefa,#f0dcb8)!important;border:1px solid #d8b87f!important;border-radius:13px!important}
+#viewOtherUserGiftsContainer .toggle-purchased-btn.mark{background:linear-gradient(180deg,#df3446,#bd1f36)!important;color:#fff!important;border-color:#b82b3c!important;box-shadow:0 3px 0 #7d2834!important}
+#viewOtherUserGiftsContainer .toggle-purchased-btn.unmark{background:#e7f1e8!important;color:#205241!important;border-color:#9bbaa7!important}
+#giftListDisplay .delete-gift-btn{background:#fff3f2!important;border-color:#e7b4b5!important;color:#b5213b!important}
+#giftListDisplay .edit-gift-btn{background:#e8eee8!important;color:#144939!important}
+#otherUsersList .ornament-button.is-selected{background:linear-gradient(160deg,#184f43,#083a32)!important;border-color:#e4b958!important;box-shadow:0 0 0 1px #f7d48a,0 0 18px #ffe3a329!important}
+#otherUsersList .ornament-button.is-selected::before{filter:drop-shadow(0 0 6px #ffdf8e)}
+#authStatus{border-color:#e4cd8952!important;box-shadow:0 5px 18px #001c1938!important}
+@media(max-width:899px){
+ #santaHero{margin-bottom:4px!important}
+ .north-pole-sign{font-size:8px!important;letter-spacing:.15em;gap:8px!important;margin:0 auto 3px!important}
+ #viewOtherUserGiftsContainer .toggle-purchased-btn.mark{box-shadow:0 2px 0 #7d2834!important}
+}
+@media(prefers-reduced-motion:reduce){#santaHero .santa-envelope,.ornament-button,#addGiftButton{transition:none!important}}
 </style>
   <script>
     (function () {
@@ -1036,7 +1086,7 @@ authStatusTextElement.textContent = `${LANGUAGES[currentLanguage].signedInAs} ${
           ownerGiftsCache = gifts.slice();
 
           if (gifts.length === 0) {
-            giftListDisplayElement.innerHTML = `<h3>${currentLanguage === "fr" ? "Ma liste de souhaits" : "My Wish List"}</h3><p>${LANGUAGES[currentLanguage].noGifts}</p>`;
+            giftListDisplayElement.innerHTML = `<h3>${LANGUAGES[currentLanguage].yourGiftList}</h3><div class="santa-empty"><div class="santa-empty-icon" aria-hidden="true">✦</div><p>${LANGUAGES[currentLanguage].noGifts}</p></div>`;
             return;
           }
 
@@ -1384,6 +1434,7 @@ authStatusTextElement.textContent = `${LANGUAGES[currentLanguage].signedInAs} ${
     function displayOtherUserGifts(targetUid, targetLabel) {
       if (otherUserGiftsUnsub) otherUserGiftsUnsub();
 
+      viewOtherUserGiftsContainer.classList.remove('waiting-for-gifts');
       viewOtherUserGiftsContainer.style.display = 'block';
       viewOtherUserGiftsContainer.innerHTML = `<h3>${LANGUAGES[currentLanguage].loadingGifts}</h3>`;
 
@@ -1418,7 +1469,7 @@ authStatusTextElement.textContent = `${LANGUAGES[currentLanguage].signedInAs} ${
         visible.sort((a, b) => (a.orderIndex ?? 0) - (b.orderIndex ?? 0));
 
         if (visible.length === 0) {
-          viewOtherUserGiftsContainer.innerHTML = `<h3>${LANGUAGES[currentLanguage].noAvailableGifts.replace("{name}", targetLabel)}</h3>`;
+          viewOtherUserGiftsContainer.innerHTML = `<div class="santa-empty"><div class="santa-empty-icon" aria-hidden="true">✉</div><h3>${LANGUAGES[currentLanguage].noAvailableGifts.replace("{name}", targetLabel)}</h3><p>${currentLanguage === 'fr' ? 'On va garder un œil sur sa liste!' : 'Check back later for more gift ideas!'}</p></div>`;
           return;
         }
 
@@ -2300,6 +2351,7 @@ button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible{
       <span class="garland-bow">🎀</span>
       <span class="fairy-light bulb-one"></span><span class="fairy-light bulb-two"></span><span class="fairy-light bulb-three"></span><span class="fairy-light bulb-four"></span><span class="fairy-light bulb-five"></span>
     </div>
+    <div class="winter-horizon" aria-hidden="true"><span class="winter-tree tree-a"></span><span class="winter-tree tree-b"></span><span class="winter-tree tree-c"></span><span class="winter-tree tree-d"></span></div>
     <div class="santa-title-line">
       <div class="santa-title-group">
         <h1 id="christmasHeader">Letter to Santa</h1>
@@ -2317,6 +2369,7 @@ button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible{
       </div>
     </div>
   </div>
+  <div class="north-pole-sign" aria-hidden="true"><span>✦</span> NORTH POLE POST OFFICE <span>✦</span></div>
   <div id="authStatus">
     <span id="authStatusText">Checking authentication status...</span>
               <div style="display: flex; gap: 8px; align-items: center;">
@@ -2362,7 +2415,7 @@ button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible{
 
   <div id="giftListDisplay"><h3>Please sign in to view and add your gifts.</h3></div>
   <div id="otherUsersList"></div>
-  <div id="viewOtherUserGiftsContainer"></div>
+  <div id="viewOtherUserGiftsContainer" class="waiting-for-gifts"></div>
   <div id="myPurchasesContainer"></div>
   </div></div>
   
