@@ -1,7 +1,7 @@
 {
-  "name": "Family Gift List",
-  "short_name": "Family Gifts",
-  "description": "Our family Christmas wish lists",
+  "name": "Letter to Santa",
+  "short_name": "Santa Letter",
+  "description": "Our family's letters to Santa and Christmas wish lists",
   "start_url": "/christmas2026/",
   "scope": "/christmas2026/",
   "display": "standalone",
