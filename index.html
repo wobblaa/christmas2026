@@ -71,7 +71,7 @@ html[lang="fr"] #otherUsersList::before{content:'Sélectionnez un membre de la f
 
 /* Family tiles: one-line names, responsive sizing, graceful ellipsis. */
 .family-members-list .ornament-button{min-width:0!important;overflow:hidden!important}
-.family-members-list .ornament-text{display:block!important;width:100%!important;max-width:100%!important;min-width:0!important;box-sizing:border-box!important;white-space:nowrap!important;overflow:hidden!important;text-overflow:ellipsis!important;overflow-wrap:normal!important;word-break:normal!important;line-height:1.3!important;padding:0 2px!important;text-align:center!important}
+.family-members-list .ornament-text{display:block!important;width:100%!important;max-width:100%!important;min-width:0!important;box-sizing:border-box!important;white-space:nowrap!important;overflow:hidden!important;text-overflow:clip!important;overflow-wrap:normal!important;word-break:normal!important;line-height:1.3!important;padding:0 2px!important;text-align:center!important}
 </style>
   <script>
     (function () {
@@ -1233,15 +1233,19 @@ authStatusTextElement.textContent = `${LANGUAGES[currentLanguage].signedInAs} ${
         if (familyGrid) {
           const fitNames = () => {
             familyGrid.querySelectorAll('.ornament-text').forEach(label => {
-              label.style.fontSize = '';
-              const available = label.clientWidth;
-              if (!available) return;
+              const available = label.clientWidth - 4;
+              if (available <= 0) return;
+              // Measure the untruncated text: scrollWidth on an ellipsis-clipped
+              // element can report only its visible width.
+              const canvas = fitNames.canvas || (fitNames.canvas = document.createElement('canvas'));
+              const ctx = canvas.getContext('2d');
+              const family = getComputedStyle(label).fontFamily;
+              const weight = getComputedStyle(label).fontWeight;
               let size = 12;
-              label.style.fontSize = size + 'px';
-              while (label.scrollWidth > available + 1 && size > 8) {
-                size -= 0.5;
-                label.style.fontSize = size + 'px';
-              }
+              ctx.font = weight + ' ' + size + 'px ' + family;
+              const fullWidth = ctx.measureText(label.textContent).width;
+              if (fullWidth > available) size = Math.max(6, Math.floor((size * available / fullWidth) * 10) / 10);
+              label.style.setProperty('font-size', size + 'px', 'important');
             });
           };
           requestAnimationFrame(fitNames);
