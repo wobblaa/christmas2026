@@ -6,7 +6,7 @@
   <meta name="theme-color" content="#082f2a" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-  <meta name="apple-mobile-web-app-title" content="Family Gifts" />
+  <meta name="apple-mobile-web-app-title" content="Letter to Santa" />
   <link rel="manifest" href="./manifest.webmanifest" />
   <link rel="icon" type="image/svg+xml" href="./icon.svg" />
   <style>
@@ -106,7 +106,7 @@ html[lang="fr"] #otherUsersList::before{content:'Choisis quelqu’un de la gang 
       }
     });
   </script>
-  <title>My Family Gift List!</title>
+  <title>Letter to Santa</title>
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-app.js";
     import {
@@ -140,7 +140,7 @@ html[lang="fr"] #otherUsersList::before{content:'Choisis quelqu’un de la gang 
     const LANGUAGES = {
       en: {
         // Header
-        'welcomeHeader': 'Welcome to the Family Gift List!',
+        'welcomeHeader': 'Letter to Santa',
         'signOut': 'Sign Out',
         'checkingAuth': 'Checking authentication status...',
         'signedInAs': 'Signed in as:',
@@ -215,7 +215,7 @@ html[lang="fr"] #otherUsersList::before{content:'Choisis quelqu’un de la gang 
       },
       fr: {
         // Header
-        'welcomeHeader': "Noël en famille 🎄",
+        'welcomeHeader': "Lettre au père Noël",
         'signOut': "Déconnexion",
         'checkingAuth': "On vérifie ta connexion...",
         'signedInAs': "Connecté :",
@@ -1830,7 +1830,7 @@ authStatusTextElement.textContent = `${LANGUAGES[currentLanguage].signedInAs} ${
     // A quiet, accessible holiday heading instead of alternating red/green letters.
     function createChristmasHeader() {
       const header = document.getElementById('christmasHeader');
-      if (header) header.textContent = currentLanguage === 'fr' ? 'Noël en famille 🎄' : 'Family Gift List';
+      if (header) header.textContent = currentLanguage === 'fr' ? 'Lettre au père Noël' : 'Letter to Santa';
     }
 
     // ===== GIFT DESCRIPTION TOGGLE =====
@@ -2176,7 +2176,7 @@ button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible{
 <section id="installGate" aria-label="Add Family Gifts to your Home Screen">
   <div class="install-panel">
     <div class="install-gift" aria-hidden="true">🎁</div>
-    <h2>Family Gift List</h2>
+    <h2>Letter to Santa</h2>
     <p>For easier access, add Family Gifts to your phone's Home Screen. You can open it from there instead of going through Snapchat or Messenger each time.</p>
     <ol id="installInstructions"></ol>
     <button type="button" onclick="continueFamilyGiftsBrowser()">Continue in Browser</button>
@@ -2184,7 +2184,7 @@ button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible{
   </div>
 </section>
 <div class="content-pane"><div class="content-inner">
-  <h1 id="christmasHeader" style="text-align: center; margin-bottom: 20px;">Family Gift List</h1>
+  <h1 id="christmasHeader" style="text-align: center; margin-bottom: 20px;">Letter to Santa</h1>
   <div id="authStatus">
     <span id="authStatusText">Checking authentication status...</span>
               <div style="display: flex; gap: 8px; align-items: center;">
