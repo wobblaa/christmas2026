@@ -1,0 +1,18 @@
+{
+  "name": "Family Gift List",
+  "short_name": "Family Gifts",
+  "description": "Our family Christmas wish lists",
+  "start_url": "/christmas2026/",
+  "scope": "/christmas2026/",
+  "display": "standalone",
+  "background_color": "#082f2a",
+  "theme_color": "#082f2a",
+  "icons": [
+    {
+      "src": "icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
