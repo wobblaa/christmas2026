@@ -243,7 +243,7 @@ html[lang="fr"] #otherUsersList::before{content:'Choisis quelqu’un de la gang 
       },
       fr: {
         // Header
-        'welcomeHeader': "Noël en famille 🎄",
+        'welcomeHeader': "Lettre au père Noël",
         'signOut': "Déconnexion",
         'checkingAuth': "On vérifie ta connexion...",
         'signedInAs': "Connecté :",
@@ -1883,7 +1883,7 @@ authStatusTextElement.textContent = `${LANGUAGES[currentLanguage].signedInAs} ${
     // A quiet, accessible holiday heading instead of alternating red/green letters.
     function createChristmasHeader() {
       const header = document.getElementById('christmasHeader');
-      if (header) header.textContent = currentLanguage === 'fr' ? 'Noël en famille 🎄' : 'Letter to Santa';
+      if (header) header.textContent = currentLanguage === 'fr' ? 'Lettre au père Noël' : 'Letter to Santa';
     }
 
     // ===== GIFT DESCRIPTION TOGGLE =====
