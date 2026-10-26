@@ -1621,10 +1621,11 @@ authStatusTextElement.textContent = `${LANGUAGES[currentLanguage].signedInAs} ${
         tabSignIn.classList.toggle('active', authMode === 'signin');
         tabSignUp.classList.toggle('active', authMode === 'signup');
       }
-      if (emailInput) emailInput.style.display = (authMode === 'signup' ? 'block' : 'none');
-      if (signInButton) signInButton.style.display = (authMode === 'signin' ? 'inline-block' : 'none');
-      if (signUpButton) signUpButton.style.display = (authMode === 'signup' ? 'inline-block' : 'none');
+      if (emailInput) { emailInput.style.setProperty('display', authMode === 'signup' ? 'block' : 'none', 'important'); emailInput.required = authMode === 'signup'; }
+      if (signInButton) signInButton.style.setProperty('display', authMode === 'signin' ? 'inline-block' : 'none', 'important');
+      if (signUpButton) signUpButton.style.setProperty('display', authMode === 'signup' ? 'inline-block' : 'none', 'important');
       if (firstNameInput) firstNameInput.placeholder = (authMode === 'signin') ? LANGUAGES[currentLanguage].firstNameToLogin : LANGUAGES[currentLanguage].firstNameDisplayLogin;
+      if (passwordInput) passwordInput.autocomplete = authMode === 'signin' ? 'current-password' : 'new-password';
     }
 
     // A quiet, accessible holiday heading instead of alternating red/green letters.
@@ -1985,9 +1986,9 @@ button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible{
       <button type="button" id="tabSignIn" class="active">I have an account</button>
       <button type="button" id="tabSignUp">Create an account</button>
     </div>
-    <input type="text" id="firstNameInput" placeholder="First name (to log in)" required>
-    <input type="email" id="emailInput" placeholder="Email" required style="display:none;">
-    <input type="password" id="passwordInput" placeholder="Password" required>
+    <input type="text" id="firstNameInput" placeholder="First name (to log in)" autocomplete="username" required>
+    <input type="email" id="emailInput" placeholder="Email" autocomplete="email" style="display:none;">
+    <input type="password" id="passwordInput" placeholder="Password" autocomplete="current-password" required>
     <div style="margin-top:8px; display:flex; gap:10px; flex-wrap:wrap;">
       <button id="signInButton">Sign In</button>
       <button id="signUpButton" style="display:none;">Sign Up</button>
