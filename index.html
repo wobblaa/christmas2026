@@ -80,6 +80,34 @@ html[lang="fr"] #otherUsersList::before{content:'Choisis quelqu’un de la gang 
 #addGiftForm .localized-file-picker input:focus-visible+.choose-file-button{outline:3px solid #ceaa61;outline-offset:3px}
 #addGiftForm #nativeFileStatus{color:#52635d;font-size:14px;overflow-wrap:anywhere}
 #giftImageFileName[hidden]{display:none!important}
+
+/* Gift artwork: uploaded photo, shop icon, or festive placeholder. */
+#giftListDisplay .gift-thumbnail,
+#viewOtherUserGiftsContainer .gift-thumbnail,
+#myPurchasesContainer .gift-thumbnail {
+  float:left!important;display:flex!important;align-items:center!important;justify-content:center!important;
+  width:72px!important;height:72px!important;min-width:72px!important;
+  margin:0 12px 8px 0!important;border:1px solid #dcded6!important;
+  border-radius:12px!important;overflow:hidden!important;
+  background:linear-gradient(145deg,#f4e6ca,#faf7f0)!important;
+}
+.gift-thumbnail img{display:block;width:100%!important;height:100%!important;object-fit:cover!important}
+.gift-thumbnail-store img{width:46px!important;height:46px!important;object-fit:contain!important}
+.gift-thumbnail-placeholder{display:none;font-size:32px!important;line-height:1!important}
+.gift-thumbnail:not(.gift-thumbnail-photo):not(.gift-thumbnail-store) .gift-thumbnail-placeholder,
+.gift-thumbnail.gift-thumb-error .gift-thumbnail-placeholder{display:block!important}
+.gift-thumbnail.gift-thumb-error img{display:none!important}
+#giftListDisplay .gift-content::after,
+#viewOtherUserGiftsContainer li>div:first-child::after,
+#myPurchasesContainer li>div:first-child::after{content:"";display:block;clear:both}
+@media(max-width:550px){
+ #giftListDisplay .gift-thumbnail,
+ #viewOtherUserGiftsContainer .gift-thumbnail,
+ #myPurchasesContainer .gift-thumbnail{
+  width:56px!important;height:56px!important;min-width:56px!important;margin-right:9px!important
+ }
+ .gift-thumbnail-store img{width:36px!important;height:36px!important}
+}
 </style>
   <script>
     (function () {
@@ -809,6 +837,29 @@ authStatusTextElement.textContent = `${LANGUAGES[currentLanguage].signedInAs} ${
       }
     }
 
+    function renderGiftThumbnail(gift) {
+      // Browsers cannot reliably scrape product pictures from Amazon and other
+      // retailers because of cross-origin restrictions. Show an uploaded image,
+      // otherwise a recognizable retailer icon or a festive placeholder.
+      const img = gift.imageUrl && /^https:\/\//i.test(gift.imageUrl) ? gift.imageUrl : '';
+      let storeIcon = '';
+      if (!img && gift.url) {
+        try {
+          const parsed = new URL(gift.url);
+          if (['https:', 'http:'].includes(parsed.protocol)) {
+            const host = parsed.hostname.replace(/^www\./i, '').toLowerCase();
+            storeIcon = 'https://www.google.com/s2/favicons?domain=' + encodeURIComponent(host) + '&sz=128';
+          }
+        } catch (error) { /* Unknown store: show the gift placeholder. */ }
+      }
+      const src = img || storeIcon;
+      const cls = img ? ' gift-thumbnail-photo' : storeIcon ? ' gift-thumbnail-store' : '';
+      const fallback = '<span class="gift-thumbnail-placeholder" aria-hidden="true">🎁</span>';
+      return '<span class="gift-thumbnail' + cls + '">' +
+        (src ? '<img src="' + escapeAttr(src) + '" alt="" loading="lazy" onerror="this.hidden=true;this.parentElement.classList.add(\'gift-thumb-error\')">' : '') +
+        fallback + '</span>';
+    }
+
     function renderGiftLink(u) {
       let parsed;
       try { parsed = new URL(u); } catch { return ''; }
@@ -965,6 +1016,7 @@ authStatusTextElement.textContent = `${LANGUAGES[currentLanguage].signedInAs} ${
               <li class="draggable-gift" draggable="true" data-id="${g.id}">
                 <div class="drag-handle" title="Drag to reorder">⋮⋮</div>
                 <div class="gift-content">
+                ${renderGiftThumbnail(g)}
                 <div>
                     <strong>${g.name}</strong>
                   ${linkHtml}
@@ -1351,6 +1403,7 @@ authStatusTextElement.textContent = `${LANGUAGES[currentLanguage].signedInAs} ${
           html += `
             <li style="display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; padding-left: 0;">
               <div style="flex: 1; min-width: 0;">
+                ${renderGiftThumbnail(g)}
                 <div>
                   <strong>${g.name}</strong>
                   ${linkHtml}
@@ -1942,6 +1995,7 @@ authStatusTextElement.textContent = `${LANGUAGES[currentLanguage].signedInAs} ${
             html += `
               <li>
                 <div>
+                  ${renderGiftThumbnail(gift)}
                   <div>
                     <strong>${gift.name}</strong>
                     ${removedWarning}
