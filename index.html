@@ -1109,8 +1109,7 @@ authStatusTextElement.textContent = `${LANGUAGES[currentLanguage].signedInAs} ${
                 ${renderGiftThumbnail(g)}
                 <div>
                     <strong>${g.name}</strong>
-                  ${linkHtml}
-                </div>
+                  </div>
                   ${hasDescription ? `
                     <div class="description-link" onclick="toggleGiftDescription('${descriptionId}')">
                       <span class="desc-toggle-text">${LANGUAGES[currentLanguage].showDescription}</span>
@@ -1120,9 +1119,9 @@ authStatusTextElement.textContent = `${LANGUAGES[currentLanguage].signedInAs} ${
                       ${g.description}
                     </div>
                   ` : '<div style="height: 20px;"></div>'}
+                  ${linkHtml || photoButtonHtml ? `<div class="gift-attachments">${linkHtml}${photoButtonHtml}</div>` : ''}
                 </div>
                 <div class="owner-gift-actions">
-                  ${photoButtonHtml}
                   <button class="edit-gift-btn" data-id="${g.id}" data-name="${escapeAttr(g.name)}" data-desc="${escapeAttr(g.description || '')}" data-url="${escapeAttr(g.url || '')}" data-image="${escapeAttr(g.imageUrl || '')}" style="margin-right: -2px;">${LANGUAGES[currentLanguage].edit}</button>
                   <button class="delete-gift-btn" data-id="${g.id}">${LANGUAGES[currentLanguage].remove}</button>
                 </div>
@@ -1497,9 +1496,8 @@ authStatusTextElement.textContent = `${LANGUAGES[currentLanguage].signedInAs} ${
                 ${renderGiftThumbnail(g)}
                 <div>
                   <strong>${g.name}</strong>
-                  ${linkHtml}
-                  ${photoButtonHtml}
                 </div>
+                ${linkHtml || photoButtonHtml ? `<div class="gift-attachments">${linkHtml}${photoButtonHtml}</div>` : ''}
                 ${hasDescription ? `
                   <div class="description-link" onclick="toggleGiftDescription('${descriptionId}')">
                     <span class="desc-toggle-text">${LANGUAGES[currentLanguage].showDescription}</span>
@@ -2113,9 +2111,8 @@ authStatusTextElement.textContent = `${LANGUAGES[currentLanguage].signedInAs} ${
                   <div>
                     <strong>${gift.name}</strong>
                     ${removedWarning}
-                    ${linkHtml}
-                    ${photoButtonHtml}
                   </div>
+                  ${linkHtml || photoButtonHtml ? `<div class="gift-attachments">${linkHtml}${photoButtonHtml}</div>` : ''}
                   ${hasDescription ? `
                     <div class="description-link" onclick="toggleGiftDescription('${descriptionId}')">
                       <span class="desc-toggle-text">${LANGUAGES[currentLanguage].showDescription}</span>
@@ -2428,6 +2425,30 @@ button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible{
  #viewOtherUserGiftsContainer li strong,
  #myPurchasesContainer .purchase-section li strong{font-size:21px!important}
 }
+
+/* Gift photos and store references live on a matching paper gift-tag strip. */
+.gift-attachments{
+ clear:both!important;
+ display:flex!important;flex-wrap:wrap!important;align-items:center!important;
+ gap:7px!important;margin:9px 0 5px!important;padding:7px 9px!important;
+ border:1px dashed rgba(144,105,63,.38)!important;border-radius:9px!important;
+ background:rgba(239,219,177,.46)!important;max-width:100%!important;
+}
+.gift-attachments::before{content:"↳";font-family:Georgia,serif;font-size:16px;color:#98734c;margin-right:1px}
+.gift-attachments>span{display:contents!important}
+.gift-attachments .gift-store-link,
+.gift-attachments .view-photo-btn{
+ display:inline-flex!important;align-items:center!important;
+ margin:0!important;min-height:32px!important;
+ padding:6px 9px!important;font-size:12px!important;font-weight:700!important;
+ border-radius:7px!important;box-shadow:none!important;
+ background:#faf1de!important;color:#345b4d!important;border:1px solid #d4ba91!important;
+ text-decoration:none!important;
+}
+.gift-attachments .gift-store-link:hover,
+.gift-attachments .view-photo-btn:hover{background:#fff8e9!important}
+.gift-attachments .gift-store-icon{width:17px!important;height:17px!important}
+#giftListDisplay .gift-attachments .view-photo-btn{flex:0 0 auto!important}
 </style>
 </head>
 <body>
