@@ -79,6 +79,7 @@ html[lang="fr"] #otherUsersList::before{content:'Sélectionnez un membre de la f
 #addGiftForm .choose-file-button{display:inline-flex;align-items:center;justify-content:center;min-height:40px;padding:8px 12px;border-radius:9px;background:#e6efea;border:1px solid #c7d8cf;color:#194b3f;font-weight:700;cursor:pointer}
 #addGiftForm .localized-file-picker input:focus-visible+.choose-file-button{outline:3px solid #ceaa61;outline-offset:3px}
 #addGiftForm #nativeFileStatus{color:#52635d;font-size:14px;overflow-wrap:anywhere}
+#giftImageFileName[hidden]{display:none!important}
 </style>
   <script>
     (function () {
@@ -2217,6 +2218,7 @@ button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible{
     <div class="photo-upload-row">
       <label for="giftImageFileInput" id="giftImageUploadLabel" class="file-input-label">Upload Photo (optional)</label>
       <div class="localized-file-picker"><input type="file" id="giftImageFileInput" accept="image/*"><label for="giftImageFileInput" id="chooseGiftFileButton" class="choose-file-button">Choose file</label><span id="nativeFileStatus" aria-hidden="true">No file chosen</span></div>
+      <span id="giftImageFileName" class="file-input-name" hidden aria-hidden="true"></span>
       
     </div>
     <button type="submit" id="addGiftButton">Add Gift</button>
