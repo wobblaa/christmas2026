@@ -20,7 +20,22 @@
     .install-panel ol {text-align:left;line-height:1.8;padding-left:23px}
     .install-panel button {width:100%;padding:15px;border-radius:12px;border:1px solid #c6bba0;background:#f3ecd9;color:#193d34;font-size:16px;font-weight:700;cursor:pointer;margin-top:12px;min-height:48px}
     .install-panel .install-gift {font-size:44px}
-  </style>
+  
+/* Keep gift text full-width on narrow screens; actions get their own row. */
+#giftListDisplay .draggable-gift {position:relative!important;display:grid!important;grid-template-columns:20px minmax(0,1fr)!important;gap:8px 10px!important;align-items:start!important}
+#giftListDisplay .draggable-gift .drag-handle {grid-column:1!important;grid-row:1!important;align-self:center!important;padding:4px 0!important}
+#giftListDisplay .draggable-gift .gift-content {grid-column:2!important;grid-row:1!important;width:100%!important;min-width:0!important;max-width:none!important}
+#giftListDisplay .draggable-gift .gift-content>div:first-child {width:100%!important;max-width:none!important}
+#giftListDisplay .draggable-gift .gift-content strong {display:block!important;overflow-wrap:break-word!important;word-break:normal!important;hyphens:none!important;font-size:17px!important}
+#giftListDisplay .owner-gift-actions {grid-column:2!important;grid-row:2!important;display:flex!important;flex-wrap:wrap!important;gap:8px!important;margin:4px 0 0!important;min-width:0!important;align-items:center!important}
+#giftListDisplay .owner-gift-actions button {margin:0!important;flex:0 1 auto!important;min-height:43px!important;padding:9px 12px!important}
+@media(max-width:450px){
+ #giftListDisplay .draggable-gift {grid-template-columns:15px minmax(0,1fr)!important;column-gap:8px!important;padding:14px 12px!important}
+ #giftListDisplay .owner-gift-actions{grid-column:1 / -1!important;grid-row:2!important;justify-content:flex-start!important}
+ #giftListDisplay .owner-gift-actions button{font-size:13px!important;padding:9px 11px!important}
+ #giftListDisplay .draggable-gift .gift-content strong{font-size:17px!important}
+}
+</style>
   <script>
     (function () {
       const ua = navigator.userAgent || '';
@@ -872,7 +887,7 @@ authStatusTextElement.textContent = `${LANGUAGES[currentLanguage].signedInAs} ${
                     </div>
                   ` : '<div style="height: 20px;"></div>'}
                 </div>
-                <div style="margin-top:6px; display:flex; gap:3px; flex-wrap:wrap; align-items:center;">
+                <div class="owner-gift-actions">
                   ${photoButtonHtml}
                   <button class="edit-gift-btn" data-id="${g.id}" data-name="${escapeAttr(g.name)}" data-desc="${escapeAttr(g.description || '')}" data-url="${escapeAttr(g.url || '')}" data-image="${escapeAttr(g.imageUrl || '')}" style="margin-right: -2px;">${LANGUAGES[currentLanguage].edit}</button>
                   <button class="delete-gift-btn" data-id="${g.id}">${LANGUAGES[currentLanguage].remove}</button>
