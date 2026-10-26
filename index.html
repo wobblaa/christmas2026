@@ -1946,6 +1946,15 @@ button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible{
  .family-count{font-size:10px!important}
  .family-members-list.family-overflow{grid-auto-columns:clamp(52px,calc((100% - 25px)/6),90px)!important}
 }
+
+/* Keep the white profile silhouette perfectly centered inside its avatar. */
+.family-members-list .ornament-button::before{
+ background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Ccircle cx='12' cy='7' r='5' fill='white'/%3E%3Cpath d='M5 21c0-4.6 2.9-7 7-7s7 2.4 7 7z' fill='white'/%3E%3C/svg%3E")!important;
+ background-repeat:no-repeat!important;
+ background-position:center center!important;
+ background-size:53% 53%!important;
+}
+.family-members-list .ornament-button::after{display:none!important}
 </style>
 </head>
 <body>
