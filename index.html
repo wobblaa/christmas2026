@@ -102,6 +102,52 @@ html[lang="fr"] #otherUsersList::before{content:'Choisis quelqu’un de la gang 
   width:56px!important;height:56px!important;min-width:56px!important;margin-right:9px!important
  }
 }
+
+/* ---- Letter to Santa: whimsical CSS/SVG holiday treatment ---- */
+.content-inner{position:relative;isolation:isolate}
+#santaHero{grid-column:1/-1!important;grid-row:auto!important;order:1!important;position:relative;min-width:0;overflow:hidden;min-height:174px;box-sizing:border-box;margin:0 0 5px!important;padding:80px clamp(16px,3.4vw,30px) 18px;border:1px solid rgba(242,205,123,.24);border-radius:0 0 23px 23px;background:radial-gradient(ellipse at 28% 18%,rgba(39,134,96,.31),transparent 58%),linear-gradient(155deg,#074033,#092c2b 80%);box-shadow:0 12px 30px #001d1950}
+#santaHero::after{content:"✧  ✦      ✧        ✧   ✦";position:absolute;top:94px;left:20px;right:20px;color:#e8c979;opacity:.55;letter-spacing:2vw;pointer-events:none;font-size:12px}
+.santa-title-line{display:flex;justify-content:space-between;align-items:center;position:relative;z-index:2;gap:12px}
+.santa-title-group{flex:1;min-width:0}
+#santaHero #christmasHeader{padding:0!important;margin:0!important;display:block!important;text-align:left!important;line-height:1.1!important;letter-spacing:-.02em!important;font:800 clamp(29px,4.6vw,51px)/1.1 Georgia,serif!important;color:#fff7e8!important;text-shadow:0 2px 13px #00261f!important}
+#santaHero #christmasHeader::before{content:""!important;display:none!important}
+.santa-countdown{margin:10px 0 0!important;font-size:clamp(13px,2vw,18px)!important;color:#f6cc78!important;font-weight:700!important;letter-spacing:.02em!important}
+.santa-hero-fr .santa-countdown{display:none!important}
+.santa-envelope{width:clamp(68px,17vw,124px);min-width:68px;transform:rotate(4deg);filter:drop-shadow(0 5px 8px #001d1980)}
+.santa-envelope svg{width:100%;height:auto;display:block}
+.santa-garland{position:absolute;left:0;right:0;top:0;height:78px;overflow:hidden;background:repeating-linear-gradient(158deg,transparent 0 25px,rgba(8,62,42,.25) 27px 33px,transparent 36px 53px),linear-gradient(180deg,#073b2d 0,#0b4a37 70%,transparent 100%);border-bottom:1px solid #d6b36d22}
+.santa-garland::before,.santa-garland::after{content:"";position:absolute;top:-26px;width:115%;left:-7%;height:83px;border-bottom:12px solid #1c6241;border-radius:0 0 50% 50%;box-shadow:0 8px 0 -5px #33754b,0 13px 0 -9px #e6bd6d}
+.santa-garland::after{top:-34px;left:0;border-bottom-color:#135038;transform:rotate(2deg);opacity:.8}
+.garland-branch{position:absolute;z-index:2;white-space:nowrap;color:#2b8050;font-size:40px;top:14px;text-shadow:1px 4px #063d2b}
+.branch-a{left:1%;transform:rotate(-9deg)}
+.branch-b{right:-7%;transform:rotate(12deg)}
+.ornament{position:absolute;z-index:4;top:38px;width:19px;height:23px;border-radius:48% 48% 50% 50%;box-shadow:inset -5px -4px 6px #00201760,2px 4px 6px #00120f99}
+.ornament::before{content:"";position:absolute;left:7px;top:-11px;height:11px;width:2px;background:#e9ca82}
+.ornament-red{left:22%;background:radial-gradient(circle at 30% 25%,#fa9193,#bd2335)}
+.ornament-gold{left:70%;background:radial-gradient(circle at 30% 25%,#fff1b5,#c99434)}
+.ornament-green{left:87%;background:radial-gradient(circle at 30% 25%,#9bddbd,#21845b)}
+.garland-bow{position:absolute;z-index:4;top:5px;left:49%;font-size:29px;transform:rotate(-4deg)}
+.fairy-light{position:absolute;z-index:5;width:7px;height:9px;background:#ffe8a4;border-radius:50%;box-shadow:0 0 8px 3px #ffc963b0,0 0 22px 7px #ffc96360;top:50px;animation:twinkle 3.8s ease-in-out infinite alternate}
+.bulb-one{left:9%}.bulb-two{left:32%;top:62px;animation-delay:1s}.bulb-three{left:55%;top:61px;animation-delay:2s}.bulb-four{left:80%;animation-delay:.6s}.bulb-five{left:95%;top:45px;animation-delay:1.7s}
+@keyframes twinkle{from{opacity:.5;filter:brightness(.85)}to{opacity:1;filter:brightness(1.3)}}
+.content-pane::before{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.38;background-image:radial-gradient(2px 2px at 15% 12%,#fff,transparent),radial-gradient(3px 3px at 48% 65%,#fff,transparent),radial-gradient(2px 2px at 82% 30%,#fff,transparent),radial-gradient(2px 2px at 35% 87%,#fff,transparent),radial-gradient(3px 3px at 70% 91%,#fff,transparent);background-size:210px 280px,320px 390px,270px 310px,420px 520px,330px 450px;animation:santaSnow 30s linear infinite}
+@keyframes santaSnow{from{background-position:0 -500px,60px -410px,0 -300px,0 -550px,0 -490px}to{background-position:20px 600px,160px 690px,-30px 800px,50px 550px,-70px 620px}}
+#otherUsersList,#viewOtherUserGiftsContainer,#myPurchasesContainer,#giftListDisplay{border-color:#d2b16c45!important;box-shadow:inset 0 1px #ffffff09,0 10px 24px #001b161d!important}
+#otherUsersList h3,#myPurchasesContainer h3,#giftListDisplay h3,#viewOtherUserGiftsContainer h3{letter-spacing:-.02em!important}
+#addGiftForm{position:relative;overflow:hidden!important}
+#addGiftForm::before{content:"✉";position:absolute;right:10px;top:7px;font:54px Georgia,serif;color:#cba65b;opacity:.13;transform:rotate(-15deg);pointer-events:none}
+#giftListDisplay li,#viewOtherUserGiftsContainer li,#myPurchasesContainer li{box-shadow:0 3px 0 #092a2233,0 8px 17px #00181212!important}
+#giftListDisplay .gift-thumbnail,#viewOtherUserGiftsContainer .gift-thumbnail,#myPurchasesContainer .gift-thumbnail{border-color:#d8b87f!important;box-shadow:inset 0 0 0 2px #fff9e7!important}
+.ornament-button.is-selected{box-shadow:0 0 0 1px #f5d386,0 0 17px #e9c56b42,inset 0 0 14px #f7d28013!important}
+.ornament-button{transition:box-shadow .2s ease,background .2s ease,transform .2s ease!important}
+@media(hover:hover){.ornament-button:hover{transform:translateY(-2px)!important}}
+@media(max-width:899px){
+ #santaHero{order:1!important;min-height:164px!important;padding:77px 17px 16px!important;margin:0 0 4px!important}
+ #santaHero #christmasHeader{font-size:clamp(26px,6.4vw,36px)!important}
+ #santaHero .santa-envelope{width:77px!important;min-width:65px}
+}
+@media(max-width:360px){#santaHero .santa-envelope{width:56px!important;min-width:56px}#santaHero #christmasHeader{font-size:25px!important}}
+@media(prefers-reduced-motion:reduce){.content-pane::before,.fairy-light{animation:none!important}}
 </style>
   <script>
     (function () {
@@ -1554,8 +1600,23 @@ authStatusTextElement.textContent = `${LANGUAGES[currentLanguage].signedInAs} ${
     }
 
     // Language switching function
+    function updateSantaCountdown() {
+      const el = document.getElementById('santaCountdownText');
+      if (!el) return;
+      const now = new Date();
+      let year = now.getFullYear();
+      let christmas = new Date(year, 11, 25);
+      const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+      if (today > christmas) christmas = new Date(++year, 11, 25);
+      const days = Math.round((christmas - today) / 86400000);
+      el.textContent = days === 0 ? 'Merry Christmas!' : days === 1 ? '1 day until Christmas!' : days + ' days until Christmas!';
+      document.getElementById('santaHero')?.classList.toggle('santa-hero-fr', currentLanguage === 'fr');
+    }
+    document.addEventListener('DOMContentLoaded', updateSantaCountdown);
+
     function switchLanguage() {
       currentLanguage = currentLanguage === 'en' ? 'fr' : 'en';
+      updateSantaCountdown();
       try { localStorage.setItem('christmas2026-language', currentLanguage); }
       catch (error) { /* Storage may be unavailable in private browsing. */ }
       updateLanguage();
@@ -2231,7 +2292,31 @@ button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible{
   </div>
 </section>
 <div class="content-pane"><div class="content-inner">
-  <h1 id="christmasHeader" style="text-align: center; margin-bottom: 20px;">Letter to Santa</h1>
+  <div id="santaHero" aria-label="Christmas decorations">
+    <div class="santa-garland" aria-hidden="true">
+      <span class="garland-branch branch-a">✦ ❧ ❧ ❧ ✦ ❧ ❧</span>
+      <span class="garland-branch branch-b">❧ ❧ ✦ ❧ ❧ ✦ ❧</span>
+      <span class="ornament ornament-red"></span><span class="ornament ornament-gold"></span><span class="ornament ornament-green"></span>
+      <span class="garland-bow">🎀</span>
+      <span class="fairy-light bulb-one"></span><span class="fairy-light bulb-two"></span><span class="fairy-light bulb-three"></span><span class="fairy-light bulb-four"></span><span class="fairy-light bulb-five"></span>
+    </div>
+    <div class="santa-title-line">
+      <div class="santa-title-group">
+        <h1 id="christmasHeader">Letter to Santa</h1>
+        <p class="santa-countdown" id="santaCountdown" aria-live="off"><span aria-hidden="true">✧</span> <span id="santaCountdownText"></span> <span aria-hidden="true">✧</span></p>
+      </div>
+      <div class="santa-envelope" aria-hidden="true">
+        <svg viewBox="0 0 130 98" xmlns="http://www.w3.org/2000/svg">
+          <rect x="9" y="11" width="110" height="74" rx="7" fill="#f8edce" stroke="#bcad87" stroke-width="2" transform="rotate(-7 64 48)"/>
+          <path d="M15 24L64 60 111 23" fill="none" stroke="#cfb688" stroke-width="2.5"/>
+          <path d="M15 78l36-29M112 78L78 49" fill="none" stroke="#d9c9a5" stroke-width="2"/>
+          <text x="35" y="33" font-family="Georgia,serif" font-style="italic" font-size="12" fill="#285349">To Santa</text>
+          <circle cx="69" cy="61" r="14" fill="#ad2939" stroke="#d97767" stroke-width="2"/>
+          <path d="M63 61l5 5 8-11" fill="none" stroke="#f9d9aa" stroke-width="3" stroke-linecap="round"/>
+        </svg>
+      </div>
+    </div>
+  </div>
   <div id="authStatus">
     <span id="authStatusText">Checking authentication status...</span>
               <div style="display: flex; gap: 8px; align-items: center;">
