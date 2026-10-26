@@ -1085,6 +1085,12 @@ authStatusTextElement.textContent = `${LANGUAGES[currentLanguage].signedInAs} ${
         html += `</div>`;
         
         otherUsersListElement.innerHTML = html;
+         // Scale cards to the number of family members; scroll only past six.
+         const familyGrid = otherUsersListElement.querySelector('.family-members-list');
+         if (familyGrid) {
+           familyGrid.style.setProperty('--family-count', String(usersWithLabels.length));
+           familyGrid.classList.toggle('family-overflow', usersWithLabels.length > 6);
+         }
 
         document.querySelectorAll('.ornament-button').forEach(button => {
           button.setAttribute('aria-label', `View ${button.dataset.name}'s gift list`);
@@ -1912,6 +1918,34 @@ button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible{
 }
 @media(max-width:390px){.content-pane{padding-inline:9px!important}#christmasHeader{font-size:27px!important}#viewOtherUserGiftsContainer li .toggle-purchased-btn,.purchase-section li .unmark-purchase-btn{width:100%!important;margin-left:0!important}}
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.01ms!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
+
+/* Adaptive family selector: 1-6 equal cards, 7+ horizontal scroll */
+.family-members-list{
+ --family-count:5;
+ display:grid!important;
+ grid-template-columns:repeat(var(--family-count),minmax(0,1fr))!important;
+ gap:clamp(4px,1vw,12px)!important;
+ overflow-x:visible!important;
+ max-width:100%!important;
+}
+.family-members-list.family-overflow{
+ grid-template-columns:none!important;
+ grid-auto-flow:column!important;
+ grid-auto-columns:clamp(56px,calc((100% - 5 * 6px)/6),155px)!important;
+ overflow-x:auto!important;
+ scroll-snap-type:x proximity;
+ overscroll-behavior-x:contain;
+ padding-bottom:10px!important;
+ scrollbar-width:thin;
+}
+.family-members-list.family-overflow .ornament-button{scroll-snap-align:start}
+@media(max-width:899px){
+ .family-members-list{grid-template-columns:repeat(var(--family-count),minmax(0,1fr))!important;gap:5px!important}
+ .ornament-button{padding:8px 2px!important;min-height:94px!important}
+ .ornament-text{font-size:clamp(10px,2.6vw,12px)!important;line-height:1.2!important}
+ .family-count{font-size:10px!important}
+ .family-members-list.family-overflow{grid-auto-columns:clamp(52px,calc((100% - 25px)/6),90px)!important}
+}
 </style>
 </head>
 <body>
