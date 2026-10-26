@@ -1595,8 +1595,8 @@ authStatusTextElement.textContent = `${LANGUAGES[currentLanguage].signedInAs} ${
       
       // Update "Signed in as" text
       const authStatusText = document.getElementById('authStatusText');
-      if (authStatusText && (authStatusText.textContent.includes('Signed in as:') || authStatusText.textContent.includes('Connecté en tant que:'))) {
-        const name = authStatusText.textContent.replace('Signed in as: ', '').replace('Connecté en tant que: ', '');
+      if (authStatusText && /^(?:Signed in as:|Connecté en tant que:|Connecté :)\s*/.test(authStatusText.textContent)) {
+        const name = authStatusText.textContent.replace(/^(?:Signed in as:|Connecté en tant que:|Connecté :)\s*/, '');
         authStatusText.textContent = `${lang.signedInAs} ${name}`;
       } else if (authStatusText && (authStatusText.textContent.includes('Checking authentication status') || authStatusText.textContent.includes('Vérification du statut'))) {
         authStatusText.textContent = lang.checkingAuth;
