@@ -1798,7 +1798,7 @@ authStatusTextElement.textContent = `${LANGUAGES[currentLanguage].signedInAs} ${
         authStatusText.textContent = `${lang.signedInAs} ${name}`;
       } else if (authStatusText && (authStatusText.textContent.includes('Checking authentication status') || authStatusText.textContent.includes('Vérification du statut'))) {
         authStatusText.textContent = lang.checkingAuth;
-      } else if (authStatusText && (authStatusText.textContent.includes('No user signed in') || authStatusText.textContent.includes('Aucun utilisateur connecté'))) {
+      } else if (authStatusText && (authStatusText.textContent.includes('No user signed in') || authStatusText.textContent.includes('Aucun utilisateur connecté') || authStatusText.textContent.includes(LANGUAGES.fr.noUserSignedIn))) {
         authStatusText.textContent = lang.noUserSignedIn;
       }
       
