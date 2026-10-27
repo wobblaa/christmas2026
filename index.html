@@ -243,8 +243,8 @@ html[lang="fr"] #otherUsersList::before{content:'Choisis quelqu’un de la gang 
         : 'Put Letter to Santa on your Home Screen';
       const ps = help.querySelectorAll('p');
       if (ps[0]) ps[0].innerHTML = fr
-        ? '<strong>iPhone :</strong> Ouvre le site dans Safari. Ferme le menu « Traduire/Signets » au besoin, puis touche le bouton Partager (carré avec flèche vers le haut, □↑) dans la barre d’outils. Choisis Ajouter à l’écran d’accueil.'
-        : '<strong>iPhone:</strong> Open in Safari. Close the Translate/Bookmarks menu if it’s open, then tap Share (square with an up arrow, □↑) in Safari’s toolbar and choose Add to Home Screen.';
+        ? '<strong>iPhone :</strong> Ouvre le site dans Safari, touche Partager (le carré avec une flèche vers le haut), puis choisis Ajouter à l’écran d’accueil.'
+        : '<strong>iPhone:</strong> Open the site in Safari, tap Share (the square with an up arrow), then choose Add to Home Screen.';
       if (ps[1]) ps[1].innerHTML = fr
         ? '<strong>Android :</strong> Ouvre le site dans Chrome, touche le menu ⋮, puis Installer l’application ou Ajouter à l’écran d’accueil.'
         : '<strong>Android:</strong> Open in Chrome, tap ⋮, then Install app or Add to Home Screen.';
@@ -273,8 +273,8 @@ html[lang="fr"] #otherUsersList::before{content:'Choisis quelqu’un de la gang 
       const instructions = document.getElementById('installInstructions');
       if (instructions) instructions.innerHTML = platform.isIOS
         ? (fr
-          ? '<li>Ouvre le lien dans <strong>Safari</strong> (pas dans Messenger ou Snapchat).</li><li>Ferme le menu qui affiche « Traduire », « Signets », etc. Cherche le bouton <strong>Partager</strong> de Safari : un <strong>carré avec une flèche vers le haut (□↑)</strong>, dans la barre d’outils. S’il n’apparaît pas, touche la barre d’adresse ou fais défiler légèrement la page pour faire réapparaître les commandes.</li><li>Choisis <strong>Sur l’écran d’accueil</strong> ou <strong>Ajouter à l’écran d’accueil</strong>. Active <strong>Ouvrir comme app web</strong> si cette option apparaît.</li><li>Appuie sur <strong>Ajouter</strong>, puis ouvre la nouvelle icône <strong>Lettre au père Noël</strong>.</li>'
-          : '<li>Open this link in <strong>Safari</strong> (not the Snapchat or Messenger browser).</li><li>Close the menu that lists “Translate”, “Bookmarks”, etc. Find Safari’s <strong>Share</strong> button — a <strong>square with an upward arrow (□↑)</strong> on the browser toolbar. If the toolbar is hidden, tap the address bar or scroll slightly to reveal it.</li><li>Choose <strong>Add to Home Screen</strong> and enable <strong>Open as Web App</strong> if offered.</li><li>Tap <strong>Add</strong>, then open the new Letter to Santa icon.</li>')
+          ? '<li>Ouvre le lien dans <strong>Safari</strong> (pas dans Messenger ou Snapchat).</li><li>Touche <strong>Partager</strong> (le carré avec une flèche vers le haut) dans Safari.</li><li>Choisis <strong>Sur l’écran d’accueil</strong> ou <strong>Ajouter à l’écran d’accueil</strong>. Active <strong>Ouvrir comme app web</strong> si cette option apparaît.</li><li>Appuie sur <strong>Ajouter</strong>, puis ouvre la nouvelle icône <strong>Lettre au père Noël</strong>.</li>'
+          : '<li>Open this link in <strong>Safari</strong> (not the Snapchat or Messenger browser).</li><li>Tap <strong>Share</strong> (the square with an up arrow) in Safari.</li><li>Choose <strong>Add to Home Screen</strong> and enable <strong>Open as Web App</strong> if offered.</li><li>Tap <strong>Add</strong>, then open the new Letter to Santa icon.</li>')
         : (fr
           ? '<li>Ouvre le lien dans <strong>Chrome</strong> (pas dans le navigateur de Messenger ou Snapchat).</li><li>Appuie sur le menu <strong>⋮</strong> de Chrome.</li><li>Choisis <strong>Installer l’application</strong> ou <strong>Ajouter à l’écran d’accueil</strong>.</li><li>Ouvre la nouvelle icône <strong>Lettre au père Noël</strong>.</li>'
           : '<li>Open this link in <strong>Chrome</strong> (not an in-app browser).</li><li>Tap the browser menu <strong>⋮</strong>.</li><li>Choose <strong>Install app</strong> or <strong>Add to Home Screen</strong>.</li><li>Open the new Letter to Santa icon.</li>');
