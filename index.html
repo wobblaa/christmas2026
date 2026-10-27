@@ -2074,7 +2074,7 @@ authStatusTextElement.textContent = `${LANGUAGES[currentLanguage].signedInAs} ${
       }
       if (emailInput) { emailInput.style.setProperty('display', authMode === 'signup' ? 'block' : 'none', 'important'); emailInput.required = authMode === 'signup'; }
       if (signInButton) signInButton.style.setProperty('display', authMode === 'signin' ? 'inline-block' : 'none', 'important');
-      if (signUpButton) signUpButton.style.setProperty('display', authMode === 'signup' ? 'inline-block' : 'none', 'important');
+      if (signUpButton) { signUpButton.style.setProperty('display', authMode === 'signup' ? 'inline-block' : 'none', 'important'); signUpButton.textContent = LANGUAGES[currentLanguage].createAccountBtn; }
       if (firstNameInput) firstNameInput.placeholder = (authMode === 'signin') ? LANGUAGES[currentLanguage].firstNameToLogin : LANGUAGES[currentLanguage].firstNameDisplayLogin;
       if (passwordInput) passwordInput.autocomplete = authMode === 'signin' ? 'current-password' : 'new-password';
     }
@@ -2597,7 +2597,7 @@ button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible{
     <input type="password" id="passwordInput" placeholder="Password" autocomplete="current-password" required>
     <div style="margin-top:8px; display:flex; gap:10px; flex-wrap:wrap;">
       <button id="signInButton">Sign In</button>
-      <button id="signUpButton" style="display:none;">Sign Up</button>
+      <button id="signUpButton" style="display:none;">Create Account</button>
       <a id="forgotPasswordLink">Forgot Password?</a>
     </div>
     <details class="install-help"><summary>Put Family Gifts on your phone’s Home Screen</summary><p><strong>iPhone:</strong> Open this site in Safari, tap Share, then Add to Home Screen and enable Open as Web App if shown.</p><p><strong>Android:</strong> Open this site in Chrome, tap ⋮, then Install app or Add to Home screen.</p><p>If you received the link in Snapchat or Messenger, use the app’s menu to open it in your regular browser first.</p></details>
