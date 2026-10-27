@@ -219,6 +219,34 @@ html[lang="fr"] #otherUsersList::before{content:'Choisis quelqu’un de la gang 
       sessionStorage.setItem('family-gifts-browser-continue','1');
       document.documentElement.classList.remove('install-gated');
     }
+    function toggleInstallLanguage() {
+      let next = 'fr';
+      try {
+        next = localStorage.getItem('christmas2026-language') === 'fr' ? 'en' : 'fr';
+        localStorage.setItem('christmas2026-language', next);
+      } catch (_) {}
+      updateInstallGateLanguage(next);
+      // Reinitialize the main app's language as well, before leaving the gate.
+      location.reload();
+    }
+    function updateInstallHelpLanguage(lang) {
+      const help = document.querySelector('.install-help');
+      if (!help) return;
+      const fr = lang === 'fr';
+      help.querySelector('summary').textContent = fr
+        ? 'Installer Lettre au père Noël sur ton écran d’accueil'
+        : 'Put Letter to Santa on your Home Screen';
+      const ps = help.querySelectorAll('p');
+      if (ps[0]) ps[0].innerHTML = fr
+        ? '<strong>iPhone :</strong> Ouvre le site dans Safari, touche Partager, puis Ajouter à l’écran d’accueil.'
+        : '<strong>iPhone:</strong> Open in Safari, tap Share, then Add to Home Screen.';
+      if (ps[1]) ps[1].innerHTML = fr
+        ? '<strong>Android :</strong> Ouvre le site dans Chrome, touche le menu ⋮, puis Installer l’application ou Ajouter à l’écran d’accueil.'
+        : '<strong>Android:</strong> Open in Chrome, tap ⋮, then Install app or Add to Home Screen.';
+      if (ps[2]) ps[2].textContent = fr
+        ? 'Si tu as reçu le lien dans Messenger ou Snapchat, ouvre-le d’abord dans Safari ou Chrome.'
+        : 'If you received the link through Messenger or Snapchat, open it in Safari or Chrome first.';
+    }
     function updateInstallGateLanguage(lang) {
       const fr = lang === 'fr';
       const panel = document.querySelector('#installGate .install-panel');
@@ -234,7 +262,9 @@ html[lang="fr"] #otherUsersList::before{content:'Choisis quelqu’un de la gang 
       if (paragraphs[1]) paragraphs[1].textContent = fr
         ? 'Tu peux aussi utiliser le site sans l’installer.'
         : 'You can still use the website without installing it.';
-      panel.querySelector('button').textContent = fr ? 'Continuer dans le navigateur' : 'Continue in Browser';
+      panel.querySelector('#installContinueButton').textContent = fr ? 'Continuer dans le navigateur' : 'Continue in Browser';
+      const toggle = document.getElementById('installLanguageToggle');
+      if (toggle) toggle.textContent = fr ? 'EN' : 'FR';
       const instructions = document.getElementById('installInstructions');
       if (instructions) instructions.innerHTML = platform.isIOS
         ? (fr
@@ -248,6 +278,7 @@ html[lang="fr"] #otherUsersList::before{content:'Choisis quelqu’un de la gang 
       let saved = 'en';
       try { saved = localStorage.getItem('christmas2026-language') === 'fr' ? 'fr' : 'en'; } catch (_) {}
       updateInstallGateLanguage(saved);
+      updateInstallHelpLanguage(saved);
     });
   </script>
   <title>Letter to Santa</title>
@@ -1729,6 +1760,7 @@ authStatusTextElement.textContent = `${LANGUAGES[currentLanguage].signedInAs} ${
     function switchLanguage() {
       currentLanguage = currentLanguage === 'en' ? 'fr' : 'en';
       updateInstallGateLanguage(currentLanguage);
+      updateInstallHelpLanguage(currentLanguage);
       updateSantaCountdown();
       try { localStorage.setItem('christmas2026-language', currentLanguage); }
       catch (error) { /* Storage may be unavailable in private browsing. */ }
@@ -2509,11 +2541,12 @@ button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible{
 <body>
 <section id="installGate" aria-label="Add Family Gifts to your Home Screen">
   <div class="install-panel">
+    <button type="button" id="installLanguageToggle" onclick="toggleInstallLanguage()" aria-label="Switch language" style="display:block;width:auto;min-height:38px;margin:0 0 12px auto;padding:6px 14px;background:#214f43;color:#fff7dc;border:1px solid #b7a378">FR</button>
     <div class="install-gift" aria-hidden="true">🎁</div>
     <h2>Letter to Santa</h2>
     <p>For easier access, add Family Gifts to your phone's Home Screen. You can open it from there instead of going through Snapchat or Messenger each time.</p>
     <ol id="installInstructions"></ol>
-    <button type="button" onclick="continueFamilyGiftsBrowser()">Continue in Browser</button>
+    <button type="button" id="installContinueButton" onclick="continueFamilyGiftsBrowser()">Continue in Browser</button>
     <p style="font-size:13px">You can still use the website without installing it.</p>
   </div>
 </section>
