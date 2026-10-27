@@ -203,6 +203,11 @@ html[lang="fr"] #otherUsersList::before{content:'Choisis quelqu’un de la gang 
 /* Automatically categorized gift illustrations, with consistent pastel colourways. */
 .gift-thumbnail.category-thumbnail{background:var(--thumb-bg,#f4e4d0)!important;overflow:hidden!important}
 .gift-thumbnail .category-thumbnail-art{display:block!important;width:100%!important;height:100%!important}
+
+/* Native emoji thumbnails: no downloadable image assets needed. */
+.gift-thumbnail.emoji-thumbnail,#viewOtherUserGiftsContainer .gift-thumbnail.emoji-thumbnail,#myPurchasesContainer .gift-thumbnail.emoji-thumbnail{background:var(--thumb-bg,#f4e4d0)!important}
+.gift-thumbnail .gift-emoji{display:flex;align-items:center;justify-content:center;width:100%;height:100%;font-family:'Apple Color Emoji','Segoe UI Emoji','Noto Color Emoji',sans-serif;font-size:37px;line-height:1;font-weight:400}
+@media(max-width:650px){.gift-thumbnail .gift-emoji{font-size:30px}}
 </style>
   <script>
     (function () {
@@ -989,6 +994,7 @@ authStatusTextElement.textContent = `${LANGUAGES[currentLanguage].signedInAs} ${
       // scraping or new Firebase fields; existing gifts update automatically.
       const words = ((gift.name || '') + ' ' + (gift.description || '')).toLowerCase();
       const categories = [
+        ['tech', /\b(light[ -]?bulbs?|bulbs?|ampoules?)\b/i],
         ['headphones', /\b(headphones?|headsets?|earbuds?|airpods?|écouteurs?|casques? audio)\b/i],
         ['gaming', /\b(lego|gaming|gamer|video game|videogame|xbox|playstation|ps5|nintendo|switch|controller|manette|jeu vidéo|puzzle|toys?|jouets?)\b/i],
         ['books', /\b(books?|novels?|cookbooks?|manga|comics?|livres?|romans?|bd|lecture)\b/i],
@@ -1013,26 +1019,16 @@ authStatusTextElement.textContent = `${LANGUAGES[currentLanguage].signedInAs} ${
       for (const char of seed) hash = ((hash * 31) + char.charCodeAt(0)) >>> 0;
       const fallback = [['#f6d7d8','#ba3e50'],['#d9e9df','#398169'],['#e8e2fa','#7862a9'],['#f5e8c3','#ad7937'],['#dce9f8','#4b83a5']];
       const [bg, ink] = colorSets[category] || fallback[hash % fallback.length];
-      const shared='fill="none" stroke="currentColor" stroke-width="3.7" stroke-linecap="round" stroke-linejoin="round"';
-      const art = {
-        headphones:'<path d="M19 43v-5a21 21 0 0 1 42 0v5"/><rect x="14" y="39" width="12" height="23" rx="5"/><rect x="54" y="39" width="12" height="23" rx="5"/><path d="M60 63c-2 7-9 10-17 10"/>',
-        gaming:'<rect x="13" y="28" width="54" height="30" rx="13"/><path d="M27 38v13m-7-6.5h14"/><circle cx="51" cy="40" r="3" fill="currentColor" stroke="none"/><circle cx="60" cy="47" r="3" fill="currentColor" stroke="none"/><path d="M24 56l-7 8m39-8 7 8"/>',
-        books:'<path d="M40 65c-10-6-19-6-28-3V21c12-4 20-2 28 4 9-6 18-8 28-4v41c-10-3-19-3-28 3Zm0-40v40M19 31c6-1 11 0 15 2m12 0c4-2 9-3 15-2"/>',
-        beauty:'<rect x="22" y="33" width="36" height="34" rx="8"/><rect x="32" y="25" width="16" height="8"/><path d="M40 25V15m-8 0h16"/><path d="M40 46c-7-10-16 2 0 12 16-10 7-22 0-12Z"/>',
-        clothing:'<path d="M27 18l-15 11 9 14 8-5v28h22V38l8 5 9-14-15-11-8 7H35l-8-7Z"/><path d="M35 25c3 5 7 5 10 0"/>',
-        coffee:'<path d="M17 30h39v24a15 15 0 0 1-15 15h-9a15 15 0 0 1-15-15V30Zm39 5h5c13 0 12 19-5 19M27 17c-5 6 5 7 0 12m13-12c-5 6 5 7 0 12"/>',
-        home:'<rect x="12" y="38" width="56" height="26" rx="5"/><path d="M12 48h56M20 38l10-19 13 19 11-16 10 16"/><path d="M23 55h5m9 0h5m9 0h5"/>',
-        tech:'<rect x="19" y="14" width="42" height="54" rx="7"/><path d="M32 20h16M35 61h10"/><path d="M29 33h22v18H29z"/>',
-        food:'<path d="M14 34h52l-6 30H20l-6-30Zm4 0 5-13h34l5 13M28 22v11m12-11v11m12-11v11"/><path d="M29 44l7 7 15-12"/>',
-        sports:'<circle cx="40" cy="42" r="25"/><path d="M26 24l14 9 14-9m-14 9-10 15 10 17m0-32 10 15-10 17m-10-17H15m35 0h15"/>',
-        gift:'<rect x="16" y="34" width="48" height="32" rx="4"/><path d="M12 28h56v11H12zM40 28v38"/><path d="M40 28C17 29 20 11 30 14c7 2 10 14 10 14Zm0 0c23 1 20-17 10-14-7 2-10 14-10 14Z"/>'
-      }[category];
-      return '<span class="gift-thumbnail category-thumbnail" style="--thumb-bg:' + bg + ';--thumb-ink:' + ink + '" aria-hidden="true">' +
-        '<svg class="category-thumbnail-art" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg" focusable="false">' +
-        '<circle cx="40" cy="40" r="37" fill="var(--thumb-bg)"/>' +
-        '<g style="color:var(--thumb-ink)" ' + shared + '>' + art + '</g>' +
-        '<path d="M11 17l2 5 5 2-5 2-2 5-2-5-5-2 5-2z" fill="#fff9e8" opacity=".85"/>' +
-        '</svg></span>';
+      const emoji = {
+        headphones:'🎧',gaming:'🎮',books:'📖',beauty:'🌸',
+        clothing:'👕',coffee:'☕',home:'🛏️',tech:'📱',
+        food:'🛍️',sports:'⚽',gift:'🎁'
+      };
+      // More specific emoji for commonly requested electrical/storage items.
+      let symbol = emoji[category];
+      if (category === 'tech' && /\b(?:micro[ -]?sd|sd[ -]?cards?|memory[ -]?cards?|flash[ -]?drives?|usb[ -]?(?:drives?|sticks?)|ssds?|hard[ -]?drives?|storage)\b/i.test(words)) symbol = '💾';
+      if (category === 'tech' && /\b(?:light[ -]?bulbs?|bulbs?|ampoules?)\b/i.test(words)) symbol = '💡';
+      return '<span class="gift-thumbnail category-thumbnail emoji-thumbnail" style="--thumb-bg:' + bg + '" aria-hidden="true"><span class="gift-emoji">' + symbol + '</span></span>';
     }
 
     function renderGiftLink(u) {
