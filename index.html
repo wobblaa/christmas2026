@@ -219,14 +219,35 @@ html[lang="fr"] #otherUsersList::before{content:'Choisis quelqu’un de la gang 
       sessionStorage.setItem('family-gifts-browser-continue','1');
       document.documentElement.classList.remove('install-gated');
     }
-    document.addEventListener('DOMContentLoaded', function(){
+    function updateInstallGateLanguage(lang) {
+      const fr = lang === 'fr';
+      const panel = document.querySelector('#installGate .install-panel');
+      if (!panel) return;
+      const platform = window.familyGiftsInstall || {};
+      document.getElementById('installGate').setAttribute('aria-label',
+        fr ? 'Ajouter Lettre au père Noël à l’écran d’accueil' : 'Add Letter to Santa to your Home Screen');
+      panel.querySelector('h2').textContent = fr ? 'Lettre au père Noël' : 'Letter to Santa';
+      const paragraphs = panel.querySelectorAll(':scope > p');
+      if (paragraphs[0]) paragraphs[0].textContent = fr
+        ? 'Pour retrouver facilement Lettre au père Noël, ajoute le site à l’écran d’accueil de ton téléphone. Plus besoin de passer par Messenger ou Snapchat chaque fois!'
+        : 'For easier access, add Letter to Santa to your phone’s Home Screen. Open it there instead of going through Snapchat or Messenger each time.';
+      if (paragraphs[1]) paragraphs[1].textContent = fr
+        ? 'Tu peux aussi utiliser le site sans l’installer.'
+        : 'You can still use the website without installing it.';
+      panel.querySelector('button').textContent = fr ? 'Continuer dans le navigateur' : 'Continue in Browser';
       const instructions = document.getElementById('installInstructions');
-      if (instructions) {
-        const platform = window.familyGiftsInstall || {};
-        instructions.innerHTML = platform.isIOS ?
-          '<li>Open this link in <strong>Safari</strong> (not the Snapchat or Messenger browser).</li><li>Tap the <strong>Share</strong> button.</li><li>Choose <strong>Add to Home Screen</strong> and enable <strong>Open as Web App</strong> if offered.</li><li>Tap <strong>Add</strong>, then open the new Family Gifts icon.</li>' :
-          '<li>Open this link in <strong>Chrome</strong> (not an in-app browser).</li><li>Tap the browser menu <strong>⋮</strong>.</li><li>Choose <strong>Install app</strong> or <strong>Add to Home screen</strong>.</li><li>Open the new Family Gifts icon.</li>';
-      }
+      if (instructions) instructions.innerHTML = platform.isIOS
+        ? (fr
+          ? '<li>Ouvre le lien dans <strong>Safari</strong> (pas dans Messenger ou Snapchat).</li><li>Appuie sur le bouton <strong>Partager</strong>.</li><li>Choisis <strong>Sur l’écran d’accueil</strong> ou <strong>Ajouter à l’écran d’accueil</strong>. Active <strong>Ouvrir comme app web</strong> si cette option apparaît.</li><li>Appuie sur <strong>Ajouter</strong>, puis ouvre la nouvelle icône <strong>Lettre au père Noël</strong>.</li>'
+          : '<li>Open this link in <strong>Safari</strong> (not the Snapchat or Messenger browser).</li><li>Tap <strong>Share</strong>.</li><li>Choose <strong>Add to Home Screen</strong> and enable <strong>Open as Web App</strong> if offered.</li><li>Tap <strong>Add</strong>, then open the new Letter to Santa icon.</li>')
+        : (fr
+          ? '<li>Ouvre le lien dans <strong>Chrome</strong> (pas dans le navigateur de Messenger ou Snapchat).</li><li>Appuie sur le menu <strong>⋮</strong> de Chrome.</li><li>Choisis <strong>Installer l’application</strong> ou <strong>Ajouter à l’écran d’accueil</strong>.</li><li>Ouvre la nouvelle icône <strong>Lettre au père Noël</strong>.</li>'
+          : '<li>Open this link in <strong>Chrome</strong> (not an in-app browser).</li><li>Tap the browser menu <strong>⋮</strong>.</li><li>Choose <strong>Install app</strong> or <strong>Add to Home Screen</strong>.</li><li>Open the new Letter to Santa icon.</li>');
+    }
+    document.addEventListener('DOMContentLoaded', function() {
+      let saved = 'en';
+      try { saved = localStorage.getItem('christmas2026-language') === 'fr' ? 'fr' : 'en'; } catch (_) {}
+      updateInstallGateLanguage(saved);
     });
   </script>
   <title>Letter to Santa</title>
@@ -1707,6 +1728,7 @@ authStatusTextElement.textContent = `${LANGUAGES[currentLanguage].signedInAs} ${
 
     function switchLanguage() {
       currentLanguage = currentLanguage === 'en' ? 'fr' : 'en';
+      updateInstallGateLanguage(currentLanguage);
       updateSantaCountdown();
       try { localStorage.setItem('christmas2026-language', currentLanguage); }
       catch (error) { /* Storage may be unavailable in private browsing. */ }
