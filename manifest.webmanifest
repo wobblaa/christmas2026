@@ -1,6 +1,6 @@
 {
   "name": "Letter to Santa",
-  "short_name": "Santa Letter",
+  "short_name": "Letter to Santa",
   "description": "Our family's letters to Santa and Christmas wish lists",
   "start_url": "/christmas2026/",
   "scope": "/christmas2026/",
